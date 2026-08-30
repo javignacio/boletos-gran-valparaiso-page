@@ -2,26 +2,26 @@
   "id": "boletos",
   "title": "Boletos Gran Valparaíso",
   "description": "Current ticket fronts, route evidence, and a three-copy collection target.",
-  "updated": "2026-08-29T20:57:58-04:00",
+  "updated": "2026-08-30T01:39:25.849Z",
   "types_total": 59,
-  "types_owned": 0,
-  "copies_owned": 0,
+  "types_owned": 59,
+  "copies_owned": 164,
   "copies_target": 177,
-  "copies_missing": 177,
+  "copies_missing": 13,
   "unresolved": 19,
-  "completion": 0.0,
+  "completion": 92.66,
   "metrics": [
     {
       "label": "Types owned",
-      "value": "0 / 59"
+      "value": "59 / 59"
     },
     {
       "label": "Copies",
-      "value": "0 / 177"
+      "value": "164 / 177"
     },
     {
       "label": "Missing",
-      "value": "177"
+      "value": "13"
     }
   ]
 }
