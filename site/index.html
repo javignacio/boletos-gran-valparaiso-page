@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Gran Valparaíso Ticket Tracker v16</title>
 <style>
-:root{--bg:#f5f5f2;--card:#fff;--text:#1b1b1a;--muted:#6e6e69;--line:#d9d9d4;--ok:#1f7a43;--seen:#2769a8;--warn:#a86b00;--soft:#f2f3f4}
+:root{--bg:#f5f5f2;--card:#fff;--text:#1b1b1a;--muted:#6e6e69;--line:#d9d9d4;--ok:#1f7a43;--seen:#2769a8;--warn:#d69a16;--missing:#c53b32;--soft:#f2f3f4}
 *{box-sizing:border-box}
 body{margin:0;font-family:Segoe UI,Arial,sans-serif;background:var(--bg);color:var(--text)}
 header{position:sticky;top:0;z-index:30;background:#f5f5f2f4;backdrop-filter:blur(8px);border-bottom:1px solid var(--line);padding:10px 14px}
@@ -24,10 +24,11 @@ main{max-width:1700px;margin:auto;padding:13px}
 .ticket-frame{width:112px;height:164px;margin:auto;background:#eaeae6;border:1px solid #d6d6d1;border-radius:7px;overflow:hidden;display:flex;align-items:center;justify-content:center;transition:.12s transform,.12s box-shadow}
 .ticket-card:hover .ticket-frame{transform:translateY(-2px);box-shadow:0 4px 12px #00000018}
 .ticket-frame img{width:100%;height:100%;object-fit:contain;background:#efefec}
+.ticket-card.ownership-missing .ticket-frame img{opacity:.38;filter:saturate(.45)}
 .noimg{font-size:24px;color:#aaa;font-weight:700}
 .ticket-label{font-size:10px;font-weight:650;line-height:1.15;margin-top:4px;min-height:23px;display:flex;align-items:start;justify-content:center}
 .status-dot{position:absolute;width:8px;height:8px;border-radius:50%;margin:5px 0 0 99px;border:1px solid #fff}
-.dot-confirmed{background:#35a864} .dot-unresolved{background:#e2a12a} .dot-seen{background:#4a86c5} .dot-archive,.dot-na{background:#999}
+.dot-complete{background:#35a864}.dot-partial{background:#e2a12a}.dot-missing{background:var(--missing)}
 .card-wrap{position:relative;width:118px}
 
 .modal-backdrop{position:fixed;inset:0;background:#0008;display:none;align-items:center;justify-content:center;padding:14px;z-index:100}
@@ -76,7 +77,7 @@ details a{color:#2769a8}
 <div class="topline">
   <div class="stats"><b id="owned">0</b> owned / <b id="target">0</b> target · <b id="missing">0</b> missing · <b id="unresolved">0</b> unresolved</div>
   <input id="search" placeholder="Search">
-  <select id="filter"><option value="all">All</option><option value="confirmed">Confirmed</option><option value="unresolved">Unresolved</option><option value="seen">Seen</option><option value="archive">Archive</option><option value="na">N/A</option></select>
+  <select id="filter"><option value="all">All</option><option value="missing">Missing</option><option value="partial">Partial</option><option value="complete">Complete</option></select>
   <button onclick="exportData()">Export</button><button onclick="importData()">Import</button>
 </div>
 </header>
@@ -101,7 +102,7 @@ const KEY_COUNTS='gran_valparaiso_ticket_counts_v3';
 const KEY_MAP='gran_valparaiso_ticket_mapping_v3';
 const KEY_PROV='gran_valparaiso_ticket_provenance_v3';
 const KEY_META='gran_valparaiso_ticket_meta_v11';
-const PUBLISHED_STATE=/*__PUBLISHED_STATE__*/{"counts":{"u2_escolar":3,"u2_local":3,"u2_elsalto":3,"u2_plan":3,"u2_directo":3,"u2_l201_local":3,"u2_l208209_local":3,"u2_l212_local":3,"u2_l201_plan":3,"u2_l208209_plan":3,"u2_l212_plan":3,"u2_l201_directo":3,"u2_l208209_directo":3,"u2_l212_directo":3,"vinabus_am_plan260":3,"u2_l201_escolar":1,"unk_green_escolar":3,"u3_escolar_local":3,"u3_escolar_directo":3,"u3_am190":2,"u3_local_vina":3,"u3_nueva_aurora":3,"u3_local_troncal":3,"u3_directo":3,"bgv_escolar_generic":3,"bgv_am_plan":3,"bgv_local_generic":3,"bgv_plan_generic":3,"bgv_especifico":3,"bgv_directo_generic":3,"unk_am_local190":3,"unk_am_plan230":3,"unk_am_directo260":3,"unk_am_directo270":3,"inv_escolar_local":3,"inv_escolar_directo":3,"inv_local_vina":3,"inv_local_sector":3,"inv_directo":3,"inv_troncal":3,"u17_escolar_local":2,"u17_escolar_directo":3,"u17_local_vina":3,"u17_local_sector":3,"u17_troncal":3,"u18_escolar_local":3,"u18_escolar_directo":3,"u18_local_vina":3,"u18_local_troncal":3,"u18_directo":3,"mib_escolar":3,"mib_am_directo":3,"mib_local":3,"mib_directo":3,"unk_eurobus650":1,"unk_fenur":2,"unk_barcode_escolar_local":1,"q_est_directo":2,"q_660":1,"q_500":2,"q_820":3,"q_1000":1,"q_1190":3,"q_1500":1,"u4_escolar":3,"u4_local":3,"u4_plan":3,"u4_directo":3,"vinabus_am_local190":2,"u17_directo":3},"mappings":{"unk_am_directo260":{"bucket":"bgv-u56"},"unk_am_plan230":{"bucket":"bgv-u56"}},"provenance":{},"meta":{"unk_am_directo260":{"bucket":"bgv-u56","status":"confirmed"},"unk_am_plan230":{"bucket":"bgv-u56","status":"confirmed"}},"exported":"2026-08-30T01:39:25.849Z","version":11};
+const PUBLISHED_STATE=/*__PUBLISHED_STATE__*/{"counts":{"u2_escolar":3,"u2_local":3,"u2_elsalto":3,"u2_plan":3,"u2_directo":3,"u2_l201_local":3,"u2_l208209_local":3,"u2_l212_local":3,"u2_l201_plan":3,"u2_l208209_plan":3,"u2_l212_plan":3,"u2_l201_directo":3,"u2_l208209_directo":3,"u2_l212_directo":3,"vinabus_am_plan260":3,"u2_l201_escolar":1,"unk_green_escolar":3,"u3_escolar_local":3,"u3_escolar_directo":3,"u3_am190":2,"u3_local_vina":3,"u3_nueva_aurora":3,"u3_local_troncal":3,"u3_directo":3,"bgv_escolar_generic":3,"bgv_am_plan":3,"bgv_local_generic":3,"bgv_plan_generic":3,"bgv_especifico":3,"bgv_directo_generic":3,"unk_am_local190":3,"unk_am_plan230":3,"unk_am_directo260":3,"unk_am_directo270":3,"inv_escolar_local":3,"inv_escolar_directo":3,"inv_local_vina":3,"inv_local_sector":3,"inv_directo":3,"inv_troncal":3,"u17_escolar_local":2,"u17_escolar_directo":3,"u17_local_vina":3,"u17_local_sector":3,"u17_troncal":3,"u18_escolar_local":3,"u18_escolar_directo":3,"u18_local_vina":3,"u18_local_troncal":3,"u18_directo":3,"mib_escolar":3,"mib_am_directo":3,"mib_local":3,"mib_directo":3,"unk_eurobus650":1,"unk_fenur":2,"unk_barcode_escolar_local":1,"q_est_directo":2,"q_660":1,"q_500":2,"q_820":3,"q_1000":1,"q_1190":3,"q_1500":1,"u4_escolar":3,"u4_local":3,"u4_plan":3,"u4_directo":3,"vinabus_am_local190":2,"u17_directo":3},"mappings":{"unk_am_plan230":{"bucket":"bgv-u56"},"unk_am_directo260":{"bucket":"bgv-u56"}},"provenance":{},"meta":{"unk_am_plan230":{"bucket":"bgv-u56","status":"confirmed"},"unk_am_directo260":{"bucket":"bgv-u56","status":"confirmed"}},"exported":"2026-08-30T01:39:25.849Z","version":11};
 let counts=JSON.parse(localStorage.getItem(KEY_COUNTS)||JSON.stringify(PUBLISHED_STATE.counts||{}));
 let mappings=JSON.parse(localStorage.getItem(KEY_MAP)||JSON.stringify(PUBLISHED_STATE.mappings||{}));
 let provenance=JSON.parse(localStorage.getItem(KEY_PROV)||JSON.stringify(PUBLISHED_STATE.provenance||{}));
@@ -123,7 +124,7 @@ if(localStorage.getItem(KEY_LAYOUT_MIGRATION)!=='done'){
 }
 function esc(s){return String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]))}
 function ticketByKey(k){return tickets.find(t=>t.key===k)}
-function count(k){return Math.max(0,Math.min(3,Number(counts[k]||0)))}
+function count(k){const t=ticketByKey(k),target=t?targetFor(t):3;return Math.max(0,Math.min(target,Number(counts[k]||0)))}
 function statusOf(t){return (meta[t.key]&&meta[t.key].status)||t.status}
 function bucketOf(t){
   if(meta[t.key]&&meta[t.key].bucket)return meta[t.key].bucket;
@@ -139,6 +140,13 @@ function bucketOf(t){
 function imageFor(t){return t.img?(INLINE_IMAGES[t.img]||''):''}
 function labelOf(t){return t.short_label||t.title}
 function bucketLabel(id){const b=BUCKETS[id];return b?`${b.section} › ${b.sub}`:id}
+function targetFor(t){
+  const bid=bucketOf(t),b=BUCKETS[bid]||{};
+  if(bid==='vinabus-reversos-espana-2026'||t.series==='España Campeón 2026')return 2;
+  if(b.section==='Unknown / Misc')return 1;
+  return 3;
+}
+function ownershipOf(t){const c=count(t.key),target=targetFor(t);return c<=0?'missing':(c>=target?'complete':'partial')}
 
 const SECTION_ORDER=['Servicios 100','Viña Bus','Sol y Mar','Buses Gran Valparaíso','Top Tur','Trolebuses','Transrural','Unknown / Misc'];
 const SUB_ORDER={
@@ -160,7 +168,7 @@ function render(){
     const bucketText=bids.map(id=>{const bx=BUCKETS[id]||BUCKETS['misc-other'];return bx.section+' '+bx.sub}).join(' ');
     const blob=[t.title,labelOf(t),bucketText,t.operator,t.unit,seen].join(' ').toLowerCase();
     if(q&&!blob.includes(q))return;
-    if(f!=='all'&&st!==f)return;
+    if(f!=='all'&&ownershipOf(t)!==f)return;
     bids.forEach(bid=>{
       const b=BUCKETS[bid]||BUCKETS['misc-other'];
       tree[b.section] ||= {};
@@ -203,10 +211,10 @@ function render(){
 
 function appendCards(g,arr){
   arr.forEach(t=>{
-    const st=statusOf(t),img=imageFor(t);
+    const img=imageFor(t),ownership=ownershipOf(t),c=count(t.key),target=targetFor(t);
     const wrap=document.createElement('div');wrap.className='card-wrap';
-    wrap.innerHTML=`<span class="status-dot dot-${st}" title="${esc(st)}"></span>
-      <button class="ticket-card" onclick="openModal('${t.key}')">
+    wrap.innerHTML=`<span class="status-dot dot-${ownership}" title="${c} / ${target}"></span>
+      <button class="ticket-card ownership-${ownership}" onclick="openModal('${t.key}')">
         <div class="ticket-frame">${img?`<img src="${img}" alt="${esc(labelOf(t))}">`:`<div class="noimg">?</div>`}</div>
         <div class="ticket-label">${esc(labelOf(t))}</div>
       </button>`;
@@ -223,11 +231,12 @@ function combinedSeen(t){
   return uniq;
 }
 function updateStats(){
-  const confirmed=tickets.filter(t=>statusOf(t)==='confirmed');
-  const owned=confirmed.reduce((a,t)=>a+count(t.key),0);
+  const collectible=tickets.filter(t=>!['archive','na'].includes(statusOf(t)));
+  const owned=collectible.reduce((a,t)=>a+count(t.key),0);
+  const target=collectible.reduce((a,t)=>a+targetFor(t),0);
   document.getElementById('owned').textContent=owned;
-  document.getElementById('target').textContent=confirmed.length*3;
-  document.getElementById('missing').textContent=confirmed.length*3-owned;
+  document.getElementById('target').textContent=target;
+  document.getElementById('missing').textContent=Math.max(0,target-owned);
   document.getElementById('unresolved').textContent=tickets.filter(t=>['unresolved','seen'].includes(statusOf(t))).length;
 }
 
@@ -235,7 +244,7 @@ function openModal(key){
   activeKey=key;
   const t=ticketByKey(key),st=statusOf(t),bid=bucketOf(t),b=BUCKETS[bid]||BUCKETS['misc-other'];
   document.getElementById('modal-title').textContent=labelOf(t);
-  const img=imageFor(t),c=count(key),seen=combinedSeen(t);
+  const img=imageFor(t),c=count(key),target=targetFor(t),seen=combinedSeen(t);
   const lineOpts=Object.keys(LINE_TO_UNIT).sort((a,b)=>a.localeCompare(b,undefined,{numeric:true})).map(l=>`<option value="${l}">${l} · ${LINE_TO_UNIT[l]}</option>`).join('');
   const bucketOpts=Object.keys(BUCKETS).map(id=>`<option value="${id}" ${id===bid?'selected':''}>${esc(bucketLabel(id))}</option>`).join('');
   const statusOpts=['confirmed','unresolved','seen','archive','na'].map(s=>`<option value="${s}" ${s===st?'selected':''}>${s}</option>`).join('');
@@ -252,7 +261,7 @@ function openModal(key){
 
       <div class="block">
         <div class="block-title">Copies owned</div>
-        <div class="copy-row"><button onclick="changeCount(-1)">−</button><div id="modal-count" class="copy-count">${c} / 3</div><button onclick="changeCount(1)">+</button></div>
+        <div class="copy-row"><button onclick="changeCount(-1)">−</button><div id="modal-count" class="copy-count">${c} / ${target}</div><button onclick="changeCount(1)">+</button></div>
       </div>
 
       <div class="block">
@@ -278,7 +287,7 @@ function openModal(key){
 }
 function closeModal(){document.getElementById('modal-bg').classList.remove('open');activeKey=null}
 function backdropClose(e){if(e.target.id==='modal-bg')closeModal()}
-function changeCount(d){if(!activeKey)return;counts[activeKey]=Math.max(0,Math.min(3,count(activeKey)+d));save();document.getElementById('modal-count').textContent=count(activeKey)+' / 3';updateStats()}
+function changeCount(d){if(!activeKey)return;const t=ticketByKey(activeKey),target=targetFor(t);counts[activeKey]=Math.max(0,Math.min(target,count(activeKey)+d));save();document.getElementById('modal-count').textContent=count(activeKey)+' / '+target;render()}
 function addProv(){
   if(!activeKey)return;
   const line=document.getElementById('prov-line').value,bus=document.getElementById('prov-bus').value.trim();
