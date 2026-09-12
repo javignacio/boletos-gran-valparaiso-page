@@ -78,7 +78,7 @@ details a{color:#2769a8}
   <div class="stats"><b id="owned">0</b> owned / <b id="target">0</b> target · <b id="missing">0</b> missing · <b id="unresolved">0</b> unresolved</div>
   <input id="search" placeholder="Search">
   <select id="filter"><option value="all">All</option><option value="missing">Missing</option><option value="partial">Partial</option><option value="complete">Complete</option></select>
-  <button onclick="exportData()">Export</button><button onclick="importData()">Import</button>
+  <button onclick="exportData()">Export</button><button onclick="importData()">Import</button><button onclick="restorePublished()">Restore published</button>
 </div>
 </header>
 <main id="app"></main>
@@ -102,14 +102,31 @@ const KEY_COUNTS='gran_valparaiso_ticket_counts_v3';
 const KEY_MAP='gran_valparaiso_ticket_mapping_v3';
 const KEY_PROV='gran_valparaiso_ticket_provenance_v3';
 const KEY_META='gran_valparaiso_ticket_meta_v11';
+const KEY_SYNC='gran_valparaiso_ticket_sync_v1';
 const PUBLISHED_STATE=/*__PUBLISHED_STATE__*/{"counts":{"u2_escolar":3,"u2_local":3,"u2_elsalto":3,"u2_plan":3,"u2_directo":3,"u2_l201_local":3,"u2_l208209_local":3,"u2_l212_local":3,"u2_l201_plan":3,"u2_l208209_plan":3,"u2_l212_plan":3,"u2_l201_directo":3,"u2_l208209_directo":3,"u2_l212_directo":3,"vinabus_am_plan260":3,"u2_l201_escolar":1,"unk_green_escolar":3,"u3_escolar_local":3,"u3_escolar_directo":3,"u3_am190":2,"u3_local_vina":3,"u3_nueva_aurora":3,"u3_local_troncal":3,"u3_directo":3,"bgv_escolar_generic":3,"bgv_am_plan":3,"bgv_local_generic":3,"bgv_plan_generic":3,"bgv_especifico":3,"bgv_directo_generic":3,"unk_am_local190":3,"unk_am_plan230":3,"unk_am_directo260":3,"unk_am_directo270":3,"inv_escolar_local":3,"inv_escolar_directo":3,"inv_local_vina":3,"inv_local_sector":3,"inv_directo":3,"inv_troncal":3,"u17_escolar_local":2,"u17_escolar_directo":3,"u17_local_vina":3,"u17_local_sector":3,"u17_troncal":3,"u18_escolar_local":3,"u18_escolar_directo":3,"u18_local_vina":3,"u18_local_troncal":3,"u18_directo":3,"mib_escolar":3,"mib_am_directo":3,"mib_local":3,"mib_directo":3,"unk_eurobus650":1,"unk_fenur":2,"unk_barcode_escolar_local":1,"q_est_directo":2,"q_660":1,"q_500":2,"q_820":3,"q_1000":1,"q_1190":3,"q_1500":1,"u4_escolar":3,"u4_local":3,"u4_plan":3,"u4_directo":3,"vinabus_am_local190":2,"u17_directo":3,"mib_am_local":1,"misc_bus_metro_quillota":1,"vinabus_reverse_espana_2026_unai_simon":2,"vinabus_reverse_espana_2026_david_raya":1,"vinabus_reverse_espana_2026_joan_garcia":1,"vinabus_reverse_espana_2026_marc_cucurella":1,"vinabus_reverse_espana_2026_alejandro_grimaldo":1,"vinabus_reverse_espana_2026_espana_campeon":1,"vinabus_reverse_espana_2026_mascotas":1,"vinabus_reverse_espana_2026_luis_de_la_fuente":2,"vinabus_reverse_espana_2026_aymeric_laporte":2,"vinabus_reverse_espana_2026_pau_cubarsi":2,"vinabus_reverse_espana_2026_alex_baena":2,"vinabus_reverse_espana_2026_nico_williams":1,"vinabus_reverse_espana_2026_fabian_ruiz":2,"vinabus_reverse_espana_2026_mikel_merino":2,"vinabus_reverse_espana_2026_eric_garcia":2,"vinabus_reverse_espana_2026_pedro_porro":2,"vinabus_reverse_espana_2026_mikel_oyarzabal":1,"vinabus_reverse_espana_2026_lamine_yamal":2,"vinabus_reverse_espana_2026_yeremi_pino":1,"vinabus_reverse_espana_2026_ferran_torres":1,"vinabus_reverse_espana_2026_martin_zubimendi":1,"vinabus_reverse_espana_2026_pedri":1,"vinabus_reverse_espana_2026_dani_olmo":2,"vinabus_reverse_espana_2026_gavi":1,"vinabus_reverse_espana_2026_rodri":2,"u7_receipt":1,"trolebus_receipt":1,"unk_barcode_escolar_directo":1,"eurobus_1100":1,"fenur_va":1,"local_valpo":1,"q_620":1,"q_1160":1,"q_1440":2,"q_1700":1,"efe_local":1,"efe_am":1,"as_cultural":1,"troncal_directo":1,"intercomunal_500":1,"am_230":1},"mappings":{"unk_am_plan230":{"bucket":"bgv-u56"},"unk_am_directo260":{"bucket":"bgv-u56"}},"provenance":{},"meta":{"unk_am_plan230":{"bucket":"bgv-u56","status":"confirmed"},"unk_am_directo260":{"bucket":"bgv-u56","status":"confirmed"}},"exported":"2026-09-12T02:42:56.184Z","version":11};
+
+const hadLocalState=[KEY_COUNTS,KEY_MAP,KEY_PROV,KEY_META].some(key=>localStorage.getItem(key)!==null);
+let syncInfo={};
+try{syncInfo=JSON.parse(localStorage.getItem(KEY_SYNC)||'{}')}catch{syncInfo={}}
+
 let counts=JSON.parse(localStorage.getItem(KEY_COUNTS)||JSON.stringify(PUBLISHED_STATE.counts||{}));
 let mappings=JSON.parse(localStorage.getItem(KEY_MAP)||JSON.stringify(PUBLISHED_STATE.mappings||{}));
 let provenance=JSON.parse(localStorage.getItem(KEY_PROV)||JSON.stringify(PUBLISHED_STATE.provenance||{}));
 let meta=JSON.parse(localStorage.getItem(KEY_META)||JSON.stringify(PUBLISHED_STATE.meta||{}));
 let activeKey=null;
 
-function save(){localStorage.setItem(KEY_COUNTS,JSON.stringify(counts));localStorage.setItem(KEY_MAP,JSON.stringify(mappings));localStorage.setItem(KEY_PROV,JSON.stringify(provenance));localStorage.setItem(KEY_META,JSON.stringify(meta));}
+function publishedRevision(){return String(PUBLISHED_STATE.exported||'')}
+
+function save(markChanged=true){
+  localStorage.setItem(KEY_COUNTS,JSON.stringify(counts));
+  localStorage.setItem(KEY_MAP,JSON.stringify(mappings));
+  localStorage.setItem(KEY_PROV,JSON.stringify(provenance));
+  localStorage.setItem(KEY_META,JSON.stringify(meta));
+  if(markChanged){
+    syncInfo.localChangedAt=new Date().toISOString();
+    localStorage.setItem(KEY_SYNC,JSON.stringify(syncInfo));
+  }
+}
 const KEY_LAYOUT_MIGRATION='gran_valparaiso_ticket_layout_services100_v1';
 if(localStorage.getItem(KEY_LAYOUT_MIGRATION)!=='done'){
   ['u18_am_local_lead','spf_plan_cerro','spf_adulto_mayor_local','spf_adulto_mayor_plan_cerro','spf_adulto_mayor_directo','u2_l208209_escolar','u2_l212_escolar','u8_na','u13_na','u19_na'].forEach(key=>{
@@ -119,7 +136,7 @@ if(localStorage.getItem(KEY_LAYOUT_MIGRATION)!=='done'){
     mappings[key]={...(mappings[key]||{}),bucket:'bgv-u56'};
     meta[key]={...(meta[key]||{}),bucket:'bgv-u56',status:'confirmed'};
   });
-  save();
+  save(false);
   localStorage.setItem(KEY_LAYOUT_MIGRATION,'done');
 }
 function esc(s){return String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]))}
@@ -304,6 +321,63 @@ function saveClass(){
   save();closeModal();render();
 }
 
+function applyPublishedState(){
+  counts=structuredClone(PUBLISHED_STATE.counts||{});
+  mappings=structuredClone(PUBLISHED_STATE.mappings||{});
+  provenance=structuredClone(PUBLISHED_STATE.provenance||{});
+  meta=structuredClone(PUBLISHED_STATE.meta||{});
+
+  const revision=publishedRevision();
+  syncInfo={
+    seenPublishedAt:revision,
+    loadedPublishedAt:revision,
+    localChangedAt:''
+  };
+
+  save(false);
+  localStorage.setItem(KEY_SYNC,JSON.stringify(syncInfo));
+  closeModal();
+  render();
+}
+
+function restorePublished(){
+  if(!publishedRevision()){
+    alert('No published collection data is embedded in this page.');
+    return;
+  }
+
+  if(!confirm('Replace this device’s local collection with the currently published collection?')){
+    return;
+  }
+
+  applyPublishedState();
+}
+
+function maybeOfferPublished(){
+  const revision=publishedRevision();
+  if(!revision||syncInfo.seenPublishedAt===revision)return;
+
+  if(!hadLocalState){
+    applyPublishedState();
+    return;
+  }
+
+  setTimeout(()=>{
+    const loadPublished=confirm(
+      'A published collection that has not been loaded on this device is available.\n\n'+
+      'Press OK to load the published collection.\n'+
+      'Press Cancel to keep this device’s local changes.'
+    );
+
+    if(loadPublished){
+      applyPublishedState();
+    }else{
+      syncInfo.seenPublishedAt=revision;
+      localStorage.setItem(KEY_SYNC,JSON.stringify(syncInfo));
+    }
+  },100);
+}
+
 function exportData(){
  const payload={version:11,exported:new Date().toISOString(),counts,mappings,provenance,meta};
  const blob=new Blob([JSON.stringify(payload,null,2)],{type:'application/json'});
@@ -318,6 +392,7 @@ document.getElementById('search').addEventListener('input',render);
 document.getElementById('filter').addEventListener('change',render);
 document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal()});
 render();
+maybeOfferPublished();
 </script>
 </body>
 </html>
