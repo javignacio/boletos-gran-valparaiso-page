@@ -3,25 +3,25 @@
   "title": "Boletos Gran Valparaíso",
   "description": "Gran Valparaíso ticket designs, including fronts and collectible reverses, with a three-copy target.",
   "updated": "2026-09-18T17:34:45.384Z",
-  "types_total": 127,
-  "types_owned": 120,
-  "copies_owned": 276,
-  "copies_target": 325,
-  "copies_missing": 49,
-  "unresolved": 10,
-  "completion": 84.92,
+  "types_total": 128,
+  "types_owned": 121,
+  "copies_owned": 275,
+  "copies_target": 307,
+  "copies_missing": 32,
+  "unresolved": 20,
+  "completion": 89.58,
   "metrics": [
     {
       "label": "Types owned",
-      "value": "120 / 127"
+      "value": "121 / 128"
     },
     {
       "label": "Copies",
-      "value": "276 / 325"
+      "value": "275 / 307"
     },
     {
       "label": "Missing",
-      "value": "49"
+      "value": "32"
     }
   ]
 }
