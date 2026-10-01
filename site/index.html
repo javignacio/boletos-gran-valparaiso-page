@@ -30,10 +30,12 @@ main{max-width:1700px;margin:auto;padding:13px}
 .status-dot{position:absolute;width:8px;height:8px;border-radius:50%;margin:5px 0 0 99px;border:1px solid #fff}
 .dot-complete{background:#35a864}.dot-partial{background:#e2a12a}.dot-missing{background:var(--missing)}
 .card-wrap{position:relative;width:118px}
+.series-progress{font-size:9px;color:var(--muted);margin-top:2px;font-weight:700}
 
 .modal-backdrop{position:fixed;inset:0;background:#0008;display:none;align-items:center;justify-content:center;padding:14px;z-index:100}
 .modal-backdrop.open{display:flex}
 .modal{width:min(720px,96vw);max-height:92vh;overflow:auto;background:white;border-radius:14px;box-shadow:0 16px 50px #0005}
+.modal.series-modal{width:min(1120px,97vw)}
 .modal-head{display:flex;justify-content:space-between;align-items:center;padding:11px 13px;border-bottom:1px solid var(--line);position:sticky;top:0;background:white;z-index:2}
 .modal-head h2{font-size:16px;margin:0} .close{font-size:20px;border:0;background:transparent;cursor:pointer}
 .modal-body{display:grid;grid-template-columns:185px 1fr;gap:14px;padding:13px}
@@ -48,6 +50,16 @@ main{max-width:1700px;margin:auto;padding:13px}
 .copy-row{display:grid;grid-template-columns:36px 1fr 36px;align-items:center;gap:7px;width:180px}
 .copy-row button{height:34px;border:1px solid var(--line);background:#fafafa;border-radius:7px;font-size:17px}
 .copy-count{text-align:center;font-weight:800;font-size:16px}
+.series-body{display:block;padding:13px}
+.series-intro{display:flex;gap:12px;align-items:center;margin-bottom:12px}
+.series-obverse{width:88px;height:128px;border:1px solid var(--line);border-radius:7px;object-fit:contain;background:#efefec}
+.reverse-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(132px,1fr));gap:9px}
+.reverse-item{border:1px solid var(--line);border-radius:9px;padding:7px;background:#fafaf8;min-width:0}
+.reverse-item img{display:block;width:100%;height:150px;object-fit:contain;background:#efefec;border-radius:6px}
+.reverse-name{font-size:9px;font-weight:700;line-height:1.2;min-height:30px;margin:5px 0;text-align:center}
+.reverse-item .copy-row{width:100%;grid-template-columns:28px 1fr 28px;gap:4px}
+.reverse-item .copy-row button{height:28px;font-size:15px}
+.reverse-item .copy-count{font-size:12px}
 .chips{display:flex;gap:5px;flex-wrap:wrap}
 .chip{font-size:9px;border:1px solid var(--line);background:var(--soft);border-radius:999px;padding:4px 7px}
 .prov-add{display:grid;grid-template-columns:minmax(130px,1fr) 110px 34px;gap:5px;margin-top:6px}
@@ -61,7 +73,7 @@ main{max-width:1700px;margin:auto;padding:13px}
 .note{font-size:9px;color:#655b48;line-height:1.35}
 details{font-size:9px;color:var(--muted);margin-top:7px}
 details a{color:#2769a8}
-@media(max-width:620px){.gallery{grid-template-columns:repeat(auto-fill,106px);gap:7px}.ticket-card,.card-wrap{width:106px}.ticket-frame{width:100px;height:148px}.status-dot{margin-left:88px}.modal-body{grid-template-columns:1fr}.modal-photo{width:150px;height:220px;margin:auto}.prov-add{grid-template-columns:1fr 90px 34px}}
+@media(max-width:620px){.gallery{grid-template-columns:repeat(auto-fill,106px);gap:7px}.ticket-card,.card-wrap{width:106px}.ticket-frame{width:100px;height:148px}.status-dot{margin-left:88px}.modal-body{grid-template-columns:1fr}.modal-photo{width:150px;height:220px;margin:auto}.prov-add{grid-template-columns:1fr 90px 34px}.reverse-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.reverse-item img{height:125px}.series-intro{align-items:flex-start}}
 
 .section-note{font-size:9px;color:#685f4c;background:#fff7e7;border:1px solid #ead9b6;border-radius:7px;padding:6px 7px;margin:-2px 0 7px;max-width:760px;line-height:1.35}
 .flat-section{padding-top:10px}
@@ -96,13 +108,13 @@ const INLINE_IMAGES=/*__INLINE_IMAGES__*/{"am_230.jpeg":"data:image/jpeg;base64,
 const LINE_MAP={"U2":["201","202","203","204","205","207","208","209","210","212","213","214"],"U3":["301","302","303","304","305","306","307","308","309"],"U4":["401","402","404","405","406","407","409","410","411","412"],"U5":["501","503","504","505","506","507","509","510","511","512","513","514","515","516","517","519","520","521","522"],"U6":["601","602","603","604","605","606","607","608","609","611","612","613","614"],"U7":["701","702","703","704","705","706"],"U8":["A01","A02"],"U9":["901","902","903"],"U11":["C01","C02","C03","C04"],"U13":["E01","E02","E03","E04","E05"],"U14":["101","101D","111","111D","112","114","115","115D"],"U15":["102","102D","103","117"],"U16":["106","106D","109","113","113D"],"U17":["104","107","107D","116A","116B","124"],"U18":["105","108","110","119","121","126"],"U19":["N01"],"Q":["Q01","Q02","Q03"],"UNKNOWN":[],"U2/U4":["201","202","203","204","205","207","208","209","210","212","213","214","401","402","404","405","406","407","409","410","411","412"],"U5/U6":["501","503","504","505","506","507","509","510","511","512","513","514","515","516","517","519","520","521","522","601","602","603","604","605","606","607","608","609","611","612","613","614"],"U14/U16":["101","101D","111","111D","112","114","115","115D","106","106D","109","113","113D"]};
 const OPERATOR_MAP={"U2":"Viña Bus","U3":"Sol y Mar","U4":"Viña Bus","U5":"Buses Gran Valparaíso","U6":"Buses Gran Valparaíso","U7":"Top Tur","U8":"Trolebuses","U9":"Buses Gran Valparaíso","U11":"Agdabus","U13":"Trolebuses / electric","U14":"InverSol","U15":"SPF","U16":"InverSol","U17":"Transportes BP","U18":"Ñandú","U19":"Agdabus","Q":"Transrural","UNKNOWN":"Unresolved / Misc","U2/U4":"Viña Bus","U5/U6":"Buses Gran Valparaíso","U14/U16":"InverSol"};
 const LINE_TO_UNIT={"201":"U2","202":"U2","203":"U2","204":"U2","205":"U2","207":"U2","209":"U2","210":"U2","212":"U2","213":"U2","214":"U2","301":"U3","302":"U3","303":"U3","304":"U3","305":"U3","306":"U3","307":"U3","308":"U3","309":"U3","401":"U4","402":"U4","404":"U4","405":"U4","406":"U4","407":"U4","409":"U4","410":"U4","411":"U4","412":"U4","501":"U5","503":"U5","504":"U5","505":"U5","506":"U5","507":"U5","509":"U5","510":"U5","511":"U5","512":"U5","513":"U5","514":"U5","515":"U5","516":"U5","517":"U5","519":"U5","520":"U5","521":"U5","522":"U5","601":"U6","602":"U6","603":"U6","604":"U6","605":"U6","606":"U6","607":"U6","608":"U6","609":"U6","611":"U6","612":"U6","613":"U6","614":"U6","701":"U7","702":"U7","703":"U7","704":"U7","705":"U7","706":"U7","901":"U9","902":"U9","903":"U9","C01":"U11","C02":"U11","C03":"U11","C04":"U11","E01":"U13","E02":"U13","E03":"U13","E04":"U13","E05":"U13","101":"U14","101D":"U14","111":"U14","111D":"U14","112":"U14","114":"U14","115":"U14","115D":"U14","102":"U15","102D":"U15","103":"U15","117":"U15","106":"U16","106D":"U16","109":"U16","113":"U16","113D":"U16","104":"U17","107":"U17","107D":"U17","116A":"U17","116B":"U17","124":"U17","105":"U18","108":"U18","110":"U18","119":"U18","121":"U18","126":"U18","N01":"U19","Q01":"Q","Q02":"Q","Q03":"Q","208":"U2","A01":"U8","A02":"U8"};
-const BUCKETS=/*__SECTION_CATALOG__*/{"vinabus-u2":{"section":"Viña Bus","sub":"Unidad 2 · General","unit":"U2","operator":"Viña Bus","target":3,"section_order":2,"sub_order":1,"identity":"","note":""},"vinabus-u2-201":{"section":"Viña Bus","sub":"U2 - 201/209/212","unit":"U2","operator":"Viña Bus","identity":"","note":"Boletos específicos para las líneas 201, 209 y 212","target":3,"section_order":2,"sub_order":2},"vinabus-u4":{"section":"Viña Bus","sub":"Unidad 4","unit":"U4","operator":"Viña Bus","identity":"","note":"","target":3,"section_order":2,"sub_order":3},"vinabus-reversos-espana-2026":{"section":"Viña Bus","sub":"Reversos España Campeón 2026","unit":"U2/U4","operator":"Viña Bus","identity":"","note":"Boletos Unidad 2 y Unidad 4 Tarifa Directo con reversos conmemorativos España Campeón 2026","target":2,"section_order":2,"sub_order":5},"solymar-u3":{"section":"Sol y Mar","sub":"Unidad 3","unit":"U3","operator":"Sol y Mar","target":3,"section_order":3,"sub_order":1,"identity":"","note":""},"bgv-u56":{"section":"Buses Gran Valparaíso","sub":"Unidades 5 + 6 + 9","unit":"U5/U6/U9","operator":"Buses Gran Valparaíso","identity":"","note":"","target":3,"section_order":4,"sub_order":1},"100-inversol":{"section":"Servicios 100","sub":"InverSol · U14/U16","unit":"U14/U16","operator":"InverSol","identity":"","note":"","target":3,"section_order":1,"sub_order":1},"100-spf":{"section":"Servicios 100","sub":"SPF · U15","unit":"U15","operator":"SPF","identity":"","note":"SPF utiliza los boletos de Sol y Mar","target":3,"section_order":1,"sub_order":3},"100-bp":{"section":"Servicios 100","sub":"Transportes BP · U17","unit":"U17","operator":"Transportes BP","identity":"","note":"","target":3,"section_order":1,"sub_order":4},"100-nandu":{"section":"Servicios 100","sub":"Ñandú · U18","unit":"U18","operator":"Ñandú","identity":"","note":"","target":3,"section_order":1,"sub_order":5},"toptur-u7":{"section":"Top Tur","sub":"Unidad 7","unit":"U7","operator":"Top Tur","identity":"","note":"","target":3,"section_order":5,"sub_order":1},"transrural-q":{"section":"Transrural","sub":"Q01–Q03","unit":"Q","operator":"Transrural","identity":"","note":"","target":2,"section_order":6,"sub_order":1},"misc-other":{"section":"Misc","sub":"Otros","unit":"Misc","operator":"Misc","identity":"","note":"Boletos antiguos o de otros operadores no definidos","target":1,"section_order":9,"sub_order":4},"trolebus-receipt":{"section":"Trolebuses","sub":"Unidad 8","unit":"U8","operator":"Trolebuses","identity":"","note":"Boletos tipo recibo","target":1,"section_order":7,"sub_order":1},"trolebus_u13":{"section":"Trolebuses","sub":"Unidad 13","unit":"U13","operator":"Trolebuses","identity":"","note":"Boletos tipo recibo","target":1,"section_order":7,"sub_order":2},"toptur_recibos":{"section":"Top Tur","sub":"U7 - Recibos","unit":"U7","operator":"Top Tur","identity":"","note":"Tickets tipo recibo","target":1,"section_order":5,"sub_order":2},"inversol_fenur_like":{"section":"Servicios 100","sub":"Inversor · Stock Anterior","unit":"","operator":"","identity":"","note":"","target":2,"section_order":1,"sub_order":2},"misc_intercomunal":{"section":"Misc","sub":"Intercomunal","unit":"","operator":"","identity":"","note":"","target":1,"section_order":9,"sub_order":1},"euro_bus":{"section":"Misc","sub":"Eurobus","unit":"","operator":"","identity":"","note":"","target":1,"section_order":9,"sub_order":2},"fenur_old":{"section":"Servicios 100","sub":"Fenur","unit":"","operator":"","identity":"","note":"","target":2,"section_order":1,"sub_order":7},"solymar_older":{"section":"Sol y Mar","sub":"Stock Anterior","unit":"U3","operator":"Sol y Mar","identity":"","note":"","target":2,"section_order":3,"sub_order":2},"nandu_otros":{"section":"Servicios 100","sub":"Ñandú · Otro Stock","unit":"","operator":"","identity":"","note":"","target":2,"section_order":1,"sub_order":6},"efe_c0x":{"section":"Unidad 11","sub":"Acercamiento EFE","unit":"U11","operator":"","identity":"","note":"","target":2,"section_order":8,"sub_order":1},"trole_old":{"section":"Trolebuses","sub":"Stock Anterior","unit":"U8","operator":"Trolebuses","identity":"","note":"","target":2,"section_order":7,"sub_order":2},"vinabus_old":{"section":"Viña Bus","sub":"Stock Anterior","unit":"U2/U4","operator":"Viña Bus","identity":"","note":"","target":3,"section_order":2,"sub_order":6},"bgv_old":{"section":"Buses Gran Valparaíso","sub":"Stock Anterior","unit":"U5/U6/U9","operator":"BGV","identity":"","note":"","target":2,"section_order":4,"sub_order":2}};
+const BUCKETS=/*__SECTION_CATALOG__*/{"vinabus-u2":{"section":"Viña Bus","sub":"Unidad 2 · General","unit":"U2","operator":"Viña Bus","target":3,"section_order":2,"sub_order":1,"identity":"","note":""},"vinabus-u2-201":{"section":"Viña Bus","sub":"U2 - 201/209/212","unit":"U2","operator":"Viña Bus","identity":"","note":"Boletos específicos para las líneas 201, 209 y 212","target":3,"section_order":2,"sub_order":2},"vinabus-u4":{"section":"Viña Bus","sub":"Unidad 4","unit":"U4","operator":"Viña Bus","identity":"","note":"","target":3,"section_order":2,"sub_order":3},"vinabus-reversos-espana-2026":{"section":"Viña Bus","sub":"España Campeón 2026","unit":"U2/U4","operator":"Viña Bus","identity":"","note":"Series separadas para boletos Directo de Unidad 2 y Unidad 4. Abre cada boleto para ver y registrar sus 30 reversos.","target":2,"section_order":2,"sub_order":5},"solymar-u3":{"section":"Sol y Mar","sub":"Unidad 3","unit":"U3","operator":"Sol y Mar","target":3,"section_order":3,"sub_order":1,"identity":"","note":""},"bgv-u56":{"section":"Buses Gran Valparaíso","sub":"Unidades 5 + 6 + 9","unit":"U5/U6/U9","operator":"Buses Gran Valparaíso","identity":"","note":"","target":3,"section_order":4,"sub_order":1},"100-inversol":{"section":"Servicios 100","sub":"InverSol · U14/U16","unit":"U14/U16","operator":"InverSol","identity":"","note":"","target":3,"section_order":1,"sub_order":1},"100-spf":{"section":"Servicios 100","sub":"SPF · U15","unit":"U15","operator":"SPF","identity":"","note":"SPF utiliza los boletos de Sol y Mar","target":3,"section_order":1,"sub_order":3},"100-bp":{"section":"Servicios 100","sub":"Transportes BP · U17","unit":"U17","operator":"Transportes BP","identity":"","note":"","target":3,"section_order":1,"sub_order":4},"100-nandu":{"section":"Servicios 100","sub":"Ñandú · U18","unit":"U18","operator":"Ñandú","identity":"","note":"","target":3,"section_order":1,"sub_order":5},"toptur-u7":{"section":"Top Tur","sub":"Unidad 7","unit":"U7","operator":"Top Tur","identity":"","note":"","target":3,"section_order":5,"sub_order":1},"transrural-q":{"section":"Transrural","sub":"Q01–Q03","unit":"Q","operator":"Transrural","identity":"","note":"","target":2,"section_order":6,"sub_order":1},"misc-other":{"section":"Misc","sub":"Otros","unit":"Misc","operator":"Misc","identity":"","note":"Boletos antiguos o de otros operadores no definidos","target":1,"section_order":9,"sub_order":4},"trolebus-receipt":{"section":"Trolebuses","sub":"Unidad 8","unit":"U8","operator":"Trolebuses","identity":"","note":"Boletos tipo recibo","target":1,"section_order":7,"sub_order":1},"trolebus_u13":{"section":"Trolebuses","sub":"Unidad 13","unit":"U13","operator":"Trolebuses","identity":"","note":"Boletos tipo recibo","target":1,"section_order":7,"sub_order":2},"toptur_recibos":{"section":"Top Tur","sub":"U7 - Recibos","unit":"U7","operator":"Top Tur","identity":"","note":"Tickets tipo recibo","target":1,"section_order":5,"sub_order":2},"inversol_fenur_like":{"section":"Servicios 100","sub":"Inversor · Stock Anterior","unit":"","operator":"","identity":"","note":"","target":2,"section_order":1,"sub_order":2},"misc_intercomunal":{"section":"Misc","sub":"Intercomunal","unit":"","operator":"","identity":"","note":"","target":1,"section_order":9,"sub_order":1},"euro_bus":{"section":"Misc","sub":"Eurobus","unit":"","operator":"","identity":"","note":"","target":1,"section_order":9,"sub_order":2},"fenur_old":{"section":"Servicios 100","sub":"Fenur","unit":"","operator":"","identity":"","note":"","target":2,"section_order":1,"sub_order":7},"solymar_older":{"section":"Sol y Mar","sub":"Stock Anterior","unit":"U3","operator":"Sol y Mar","identity":"","note":"","target":2,"section_order":3,"sub_order":2},"nandu_otros":{"section":"Servicios 100","sub":"Ñandú · Otro Stock","unit":"","operator":"","identity":"","note":"","target":2,"section_order":1,"sub_order":6},"efe_c0x":{"section":"Unidad 11","sub":"Acercamiento EFE","unit":"U11","operator":"","identity":"","note":"","target":2,"section_order":8,"sub_order":1},"trole_old":{"section":"Trolebuses","sub":"Stock Anterior","unit":"U8","operator":"Trolebuses","identity":"","note":"","target":2,"section_order":7,"sub_order":2},"vinabus_old":{"section":"Viña Bus","sub":"Stock Anterior","unit":"U2/U4","operator":"Viña Bus","identity":"","note":"","target":3,"section_order":2,"sub_order":6},"bgv_old":{"section":"Buses Gran Valparaíso","sub":"Stock Anterior","unit":"U5/U6/U9","operator":"BGV","identity":"","note":"","target":2,"section_order":4,"sub_order":2}};
 const KEY_COUNTS='gran_valparaiso_ticket_counts_v3';
 const KEY_MAP='gran_valparaiso_ticket_mapping_v3';
 const KEY_PROV='gran_valparaiso_ticket_provenance_v3';
 const KEY_META='gran_valparaiso_ticket_meta_v11';
 const KEY_SYNC='gran_valparaiso_ticket_sync_v1';
-const PUBLISHED_STATE=/*__PUBLISHED_STATE__*/{"counts":{"u2_escolar":3,"u2_local":3,"u2_elsalto":3,"u2_plan":3,"u2_directo":3,"u2_l201_local":3,"u2_l208209_local":3,"u2_l212_local":3,"u2_l201_plan":3,"u2_l208209_plan":3,"u2_l212_plan":3,"u2_l201_directo":3,"u2_l208209_directo":3,"u2_l212_directo":3,"vinabus_am_plan260":3,"u2_l201_escolar":1,"unk_green_escolar":3,"u3_escolar_local":3,"u3_escolar_directo":3,"u3_am190":2,"u3_local_vina":3,"u3_nueva_aurora":3,"u3_local_troncal":3,"u3_directo":3,"bgv_escolar_generic":3,"bgv_am_plan":3,"bgv_local_generic":3,"bgv_plan_generic":3,"bgv_especifico":3,"bgv_directo_generic":3,"unk_am_local190":3,"unk_am_plan230":3,"unk_am_directo260":3,"unk_am_directo270":3,"inv_escolar_local":3,"inv_escolar_directo":3,"inv_local_vina":3,"inv_local_sector":3,"inv_directo":3,"inv_troncal":3,"u17_escolar_local":3,"u17_escolar_directo":3,"u17_local_vina":3,"u17_local_sector":3,"u17_troncal":3,"u18_escolar_local":3,"u18_escolar_directo":3,"u18_local_vina":3,"u18_local_troncal":3,"u18_directo":3,"mib_escolar":3,"mib_am_directo":3,"mib_local":3,"mib_directo":3,"unk_eurobus650":1,"unk_fenur":1,"unk_barcode_escolar_local":2,"q_est_directo":2,"q_660":1,"q_500":2,"q_820":3,"q_1000":2,"q_1190":3,"q_1500":1,"u4_escolar":3,"u4_local":3,"u4_plan":3,"u4_directo":3,"vinabus_am_local190":3,"u17_directo":3,"mib_am_local":2,"misc_bus_metro_quillota":1,"vinabus_reverse_espana_2026_unai_simon":2,"vinabus_reverse_espana_2026_david_raya":2,"vinabus_reverse_espana_2026_joan_garcia":2,"vinabus_reverse_espana_2026_marc_cucurella":2,"vinabus_reverse_espana_2026_alejandro_grimaldo":2,"vinabus_reverse_espana_2026_espana_campeon":2,"vinabus_reverse_espana_2026_mascotas":2,"vinabus_reverse_espana_2026_luis_de_la_fuente":2,"vinabus_reverse_espana_2026_aymeric_laporte":2,"vinabus_reverse_espana_2026_pau_cubarsi":2,"vinabus_reverse_espana_2026_alex_baena":2,"vinabus_reverse_espana_2026_nico_williams":2,"vinabus_reverse_espana_2026_fabian_ruiz":2,"vinabus_reverse_espana_2026_mikel_merino":2,"vinabus_reverse_espana_2026_eric_garcia":2,"vinabus_reverse_espana_2026_pedro_porro":2,"vinabus_reverse_espana_2026_mikel_oyarzabal":2,"vinabus_reverse_espana_2026_lamine_yamal":2,"vinabus_reverse_espana_2026_yeremi_pino":2,"vinabus_reverse_espana_2026_ferran_torres":2,"vinabus_reverse_espana_2026_martin_zubimendi":2,"vinabus_reverse_espana_2026_pedri":2,"vinabus_reverse_espana_2026_dani_olmo":2,"vinabus_reverse_espana_2026_gavi":2,"vinabus_reverse_espana_2026_rodri":2,"u7_receipt":1,"trolebus_receipt":1,"unk_barcode_escolar_directo":2,"eurobus_1100":1,"fenur_va":2,"local_valpo":2,"q_620":1,"q_1160":1,"q_1440":2,"q_1700":1,"efe_local":1,"efe_am":2,"as_cultural":1,"troncal_directo":1,"intercomunal_500":2,"am_230":3,"vinabus_reverse_espana_2026_marcos_llorente":2,"vinabus_reverse_espana_2026_victor_munoz":2,"vinabus_reverse_espana_2026_borja_iglesias":2,"vinabus_reverse_espana_2026_campeones_espana":2,"vinabus_reverse_espana_2026_marc_pubill":2,"q_700":1,"u2_am_270":3,"solymar_am_380":2,"u7_recibo_estudiante":1,"new_ticket":1,"toptur_recibo_local":1,"trolebus_receipt_copy":1,"trolebus_receipt_u13_escolar":1,"trolebus_receipt_u13":1,"local_sector":2,"misc_directo_copy":2,"unk_fenur_escolar_local":1,"unk_fenur_escolar_directo":1,"unk_fenur_local_valpo":1,"unk_fenur_local_sector":2,"unk_fenur_local_villa":1,"unk_fenur_directo":1,"fenur_va_cafe":1,"fenur_va_amarillo":1,"q_600":1,"q_800_seen":1,"q_900":1,"q_950":1,"q_1200":1,"intercomunal_escolar":1,"intercomunal_140":1,"intercomunal_200":1,"intercomunal_300":2,"intercomunal_550":2,"unk_eurobus300":1,"unk_eurobus500":1,"unk_eurobus1000":1,"eurobus_1600":1,"solymar_local_gris":1,"solymar_local_vina_cafe":1,"solymar_local_vina_350":1,"solymar_olivar":1,"u3_am230":1,"tgp_local_troncal":2,"efe_escolar":1},"mappings":{"unk_am_plan230":{"bucket":"bgv-u56"},"unk_am_directo260":{"bucket":"bgv-u56"}},"provenance":{},"meta":{"unk_am_plan230":{"bucket":"bgv-u56","status":"confirmed"},"unk_am_directo260":{"bucket":"bgv-u56","status":"confirmed"}},"exported":"2026-09-29T23:30:12.170Z","version":11};
+const PUBLISHED_STATE=/*__PUBLISHED_STATE__*/{"counts":{"u2_escolar":3,"u2_local":3,"u2_elsalto":3,"u2_plan":3,"u2_directo":3,"u2_l201_local":3,"u2_l208209_local":3,"u2_l212_local":3,"u2_l201_plan":3,"u2_l208209_plan":3,"u2_l212_plan":3,"u2_l201_directo":3,"u2_l208209_directo":3,"u2_l212_directo":3,"vinabus_am_plan260":3,"u2_l201_escolar":1,"unk_green_escolar":3,"u3_escolar_local":3,"u3_escolar_directo":3,"u3_am190":2,"u3_local_vina":3,"u3_nueva_aurora":3,"u3_local_troncal":3,"u3_directo":3,"bgv_escolar_generic":3,"bgv_am_plan":3,"bgv_local_generic":3,"bgv_plan_generic":3,"bgv_especifico":3,"bgv_directo_generic":3,"unk_am_local190":3,"unk_am_plan230":3,"unk_am_directo260":3,"unk_am_directo270":3,"inv_escolar_local":3,"inv_escolar_directo":3,"inv_local_vina":3,"inv_local_sector":3,"inv_directo":3,"inv_troncal":3,"u17_escolar_local":3,"u17_escolar_directo":3,"u17_local_vina":3,"u17_local_sector":3,"u17_troncal":3,"u18_escolar_local":3,"u18_escolar_directo":3,"u18_local_vina":3,"u18_local_troncal":3,"u18_directo":3,"mib_escolar":3,"mib_am_directo":3,"mib_local":3,"mib_directo":3,"unk_eurobus650":1,"unk_fenur":1,"unk_barcode_escolar_local":2,"q_est_directo":2,"q_660":1,"q_500":2,"q_820":3,"q_1000":2,"q_1190":3,"q_1500":1,"u4_escolar":3,"u4_local":3,"u4_plan":3,"u4_directo":3,"vinabus_am_local190":3,"u17_directo":3,"mib_am_local":2,"misc_bus_metro_quillota":1,"vinabus_reverse_espana_2026_unai_simon__u2":1,"vinabus_reverse_espana_2026_unai_simon__u4":1,"vinabus_reverse_espana_2026_david_raya__u2":1,"vinabus_reverse_espana_2026_david_raya__u4":1,"vinabus_reverse_espana_2026_joan_garcia__u2":1,"vinabus_reverse_espana_2026_joan_garcia__u4":1,"vinabus_reverse_espana_2026_marc_cucurella__u2":1,"vinabus_reverse_espana_2026_marc_cucurella__u4":1,"vinabus_reverse_espana_2026_alejandro_grimaldo__u2":1,"vinabus_reverse_espana_2026_alejandro_grimaldo__u4":1,"vinabus_reverse_espana_2026_espana_campeon__u2":1,"vinabus_reverse_espana_2026_espana_campeon__u4":1,"vinabus_reverse_espana_2026_mascotas__u2":1,"vinabus_reverse_espana_2026_mascotas__u4":1,"vinabus_reverse_espana_2026_luis_de_la_fuente__u2":1,"vinabus_reverse_espana_2026_luis_de_la_fuente__u4":1,"vinabus_reverse_espana_2026_aymeric_laporte__u2":1,"vinabus_reverse_espana_2026_aymeric_laporte__u4":1,"vinabus_reverse_espana_2026_pau_cubarsi__u2":1,"vinabus_reverse_espana_2026_pau_cubarsi__u4":1,"vinabus_reverse_espana_2026_alex_baena__u2":1,"vinabus_reverse_espana_2026_alex_baena__u4":1,"vinabus_reverse_espana_2026_nico_williams__u2":1,"vinabus_reverse_espana_2026_nico_williams__u4":1,"vinabus_reverse_espana_2026_fabian_ruiz__u2":1,"vinabus_reverse_espana_2026_fabian_ruiz__u4":1,"vinabus_reverse_espana_2026_mikel_merino__u2":1,"vinabus_reverse_espana_2026_mikel_merino__u4":1,"vinabus_reverse_espana_2026_eric_garcia__u2":1,"vinabus_reverse_espana_2026_eric_garcia__u4":1,"vinabus_reverse_espana_2026_pedro_porro__u2":1,"vinabus_reverse_espana_2026_pedro_porro__u4":1,"vinabus_reverse_espana_2026_mikel_oyarzabal__u2":1,"vinabus_reverse_espana_2026_mikel_oyarzabal__u4":1,"vinabus_reverse_espana_2026_lamine_yamal__u2":1,"vinabus_reverse_espana_2026_lamine_yamal__u4":1,"vinabus_reverse_espana_2026_yeremi_pino__u2":1,"vinabus_reverse_espana_2026_yeremi_pino__u4":1,"vinabus_reverse_espana_2026_ferran_torres__u2":1,"vinabus_reverse_espana_2026_ferran_torres__u4":1,"vinabus_reverse_espana_2026_martin_zubimendi__u2":1,"vinabus_reverse_espana_2026_martin_zubimendi__u4":1,"vinabus_reverse_espana_2026_pedri__u2":1,"vinabus_reverse_espana_2026_pedri__u4":1,"vinabus_reverse_espana_2026_dani_olmo__u2":1,"vinabus_reverse_espana_2026_dani_olmo__u4":1,"vinabus_reverse_espana_2026_gavi__u2":1,"vinabus_reverse_espana_2026_gavi__u4":1,"vinabus_reverse_espana_2026_rodri__u2":1,"vinabus_reverse_espana_2026_rodri__u4":1,"u7_receipt":1,"trolebus_receipt":1,"unk_barcode_escolar_directo":2,"eurobus_1100":1,"fenur_va":2,"local_valpo":2,"q_620":1,"q_1160":1,"q_1440":2,"q_1700":1,"efe_local":1,"efe_am":2,"as_cultural":1,"troncal_directo":1,"intercomunal_500":2,"am_230":3,"vinabus_reverse_espana_2026_marcos_llorente__u2":1,"vinabus_reverse_espana_2026_marcos_llorente__u4":1,"vinabus_reverse_espana_2026_victor_munoz__u2":1,"vinabus_reverse_espana_2026_victor_munoz__u4":1,"vinabus_reverse_espana_2026_borja_iglesias__u2":1,"vinabus_reverse_espana_2026_borja_iglesias__u4":1,"vinabus_reverse_espana_2026_campeones_espana__u2":1,"vinabus_reverse_espana_2026_campeones_espana__u4":1,"vinabus_reverse_espana_2026_marc_pubill__u2":1,"vinabus_reverse_espana_2026_marc_pubill__u4":1,"q_700":1,"u2_am_270":3,"solymar_am_380":2,"u7_recibo_estudiante":1,"new_ticket":1,"toptur_recibo_local":1,"trolebus_receipt_copy":1,"trolebus_receipt_u13_escolar":1,"trolebus_receipt_u13":1,"local_sector":2,"misc_directo_copy":2,"unk_fenur_escolar_local":1,"unk_fenur_escolar_directo":1,"unk_fenur_local_valpo":1,"unk_fenur_local_sector":2,"unk_fenur_local_villa":1,"unk_fenur_directo":1,"fenur_va_cafe":1,"fenur_va_amarillo":1,"q_600":1,"q_800_seen":1,"q_900":1,"q_950":1,"q_1200":1,"intercomunal_escolar":1,"intercomunal_140":1,"intercomunal_200":1,"intercomunal_300":2,"intercomunal_550":2,"unk_eurobus300":1,"unk_eurobus500":1,"unk_eurobus1000":1,"eurobus_1600":1,"solymar_local_gris":1,"solymar_local_vina_cafe":1,"solymar_local_vina_350":1,"solymar_olivar":1,"u3_am230":1,"tgp_local_troncal":2,"efe_escolar":1},"mappings":{"unk_am_plan230":{"bucket":"bgv-u56"},"unk_am_directo260":{"bucket":"bgv-u56"}},"provenance":{},"meta":{"unk_am_plan230":{"bucket":"bgv-u56","status":"confirmed"},"unk_am_directo260":{"bucket":"bgv-u56","status":"confirmed"}},"exported":"2026-09-29T23:30:12.170Z","version":11};
 
 const hadLocalState=[KEY_COUNTS,KEY_MAP,KEY_PROV,KEY_META].some(key=>localStorage.getItem(key)!==null);
 let syncInfo={};
@@ -113,6 +125,11 @@ let mappings=JSON.parse(localStorage.getItem(KEY_MAP)||JSON.stringify(PUBLISHED_
 let provenance=JSON.parse(localStorage.getItem(KEY_PROV)||JSON.stringify(PUBLISHED_STATE.provenance||{}));
 let meta=JSON.parse(localStorage.getItem(KEY_META)||JSON.stringify(PUBLISHED_STATE.meta||{}));
 let activeKey=null;
+const ESPANA_SERIES='España Campeón 2026';
+const ESPANA_BUCKET='vinabus-reversos-espana-2026';
+const ESPANA_UNITS={u2:{label:'Boletos Unidad 2 — Reverso España Campeón 2026',short:'Unidad 2 · Directo',img:'usercrop_U2_DIRECTO.jpg'},u4:{label:'Boletos Unidad 4 — Reverso España Campeón 2026',short:'Unidad 4 · Directo',img:'usercrop_U4_DIRECTO.jpg'}};
+const espanaTickets=()=>tickets.filter(t=>t.series===ESPANA_SERIES);
+const seriesCountKey=(key,unit)=>`${key}__${unit}`;
 
 function publishedRevision(){return String(PUBLISHED_STATE.exported||'')}
 
@@ -137,6 +154,20 @@ if(localStorage.getItem(KEY_LAYOUT_MIGRATION)!=='done'){
   });
   save(false);
   localStorage.setItem(KEY_LAYOUT_MIGRATION,'done');
+}
+const KEY_ESPANA_UNIT_MIGRATION='gran_valparaiso_espana_2026_units_v1';
+if(localStorage.getItem(KEY_ESPANA_UNIT_MIGRATION)!=='done'){
+  espanaTickets().forEach(t=>{
+    const u2=seriesCountKey(t.key,'u2'),u4=seriesCountKey(t.key,'u4');
+    if(!(u2 in counts)&&!(u4 in counts)){
+      const legacy=Math.max(0,Math.min(4,Number(counts[t.key]||0)));
+      counts[u2]=Math.min(2,Math.ceil(legacy/2));
+      counts[u4]=Math.min(2,Math.floor(legacy/2));
+    }
+    delete counts[t.key];
+  });
+  save(false);
+  localStorage.setItem(KEY_ESPANA_UNIT_MIGRATION,'done');
 }
 function esc(s){return String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]))}
 function ticketByKey(k){return tickets.find(t=>t.key===k)}
@@ -164,6 +195,9 @@ function targetFor(t){
   return b.section==='Unknown / Misc'?1:3;
 }
 function ownershipOf(t){const c=count(t.key),target=targetFor(t);return c<=0?'missing':(c>=target?'complete':'partial')}
+function seriesCount(t,unit){return Math.max(0,Math.min(2,Number(counts[seriesCountKey(t.key,unit)]||0)))}
+function seriesTotals(unit){const rows=espanaTickets();return {owned:rows.reduce((n,t)=>n+seriesCount(t,unit),0),target:rows.length*2}}
+function seriesOwnership(unit){const x=seriesTotals(unit);return x.owned<=0?'missing':(x.owned>=x.target?'complete':'partial')}
 
 function orderForSection(name){const values=Object.values(BUCKETS).filter(b=>b.section===name).map(b=>Number(b.section_order));const valid=values.filter(Number.isFinite);return valid.length?Math.min(...valid):9999}
 function orderForSub(sectionName,subName){const b=Object.values(BUCKETS).find(x=>x.section===sectionName&&x.sub===subName);const n=Number(b&&b.sub_order);return Number.isFinite(n)?n:9999}
@@ -174,6 +208,7 @@ function render(){
   const tree={};
   Object.values(BUCKETS).forEach(b=>{tree[b.section] ||= {};tree[b.section][b.sub] ||= []});
   tickets.forEach(t=>{
+    if(t.series===ESPANA_SERIES)return;
     const st=statusOf(t),primary=bucketOf(t);
     const bids=[primary,...((t.extra_buckets||[]).filter(x=>x!==primary))];
     const seen=combinedSeen(t).join(' ');
@@ -187,6 +222,14 @@ function render(){
       tree[b.section][b.sub] ||= [];
       tree[b.section][b.sub].push(t);
     });
+  });
+  const seriesBucket=BUCKETS[ESPANA_BUCKET]||{};
+  tree[seriesBucket.section] ||= {};
+  tree[seriesBucket.section][seriesBucket.sub] ||= [];
+  Object.keys(ESPANA_UNITS).forEach(unit=>{
+    const cfg=ESPANA_UNITS[unit],ownership=seriesOwnership(unit);
+    const blob=`${cfg.label} ${cfg.short} españa campeón 2026 reversos viña bus`.toLowerCase();
+    if((!q||blob.includes(q))&&(f==='all'||ownership===f))tree[seriesBucket.section][seriesBucket.sub].push({isSeriesCard:true,seriesUnit:unit});
   });
   const app=document.getElementById('app');app.innerHTML='';
   const secs=Object.keys(tree).sort((a,b)=>orderForSection(a)-orderForSection(b)||a.localeCompare(b));
@@ -220,6 +263,12 @@ function render(){
 
 function appendCards(g,arr){
   arr.forEach(t=>{
+    if(t.isSeriesCard){
+      const cfg=ESPANA_UNITS[t.seriesUnit],totals=seriesTotals(t.seriesUnit),ownership=seriesOwnership(t.seriesUnit),img=INLINE_IMAGES[cfg.img]||'';
+      const wrap=document.createElement('div');wrap.className='card-wrap';
+      wrap.innerHTML=`<span class="status-dot dot-${ownership}" title="${totals.owned} / ${totals.target}"></span><button class="ticket-card ownership-${ownership}" onclick="openSeriesModal('${t.seriesUnit}')"><div class="ticket-frame">${img?`<img src="${img}" alt="${esc(cfg.short)}">`:'<div class="noimg">?</div>'}</div><div class="ticket-label">${esc(cfg.short)}</div><div class="series-progress">${totals.owned} / ${totals.target}</div></button>`;
+      g.appendChild(wrap);return;
+    }
     const img=imageFor(t),ownership=ownershipOf(t),c=count(t.key),target=targetFor(t);
     const wrap=document.createElement('div');wrap.className='card-wrap';
     wrap.innerHTML=`<span class="status-dot dot-${ownership}" title="${c} / ${target}"></span>
@@ -240,17 +289,31 @@ function combinedSeen(t){
   return uniq;
 }
 function updateStats(){
-  const collectible=tickets.filter(t=>!['archive','na'].includes(statusOf(t)));
+  const collectible=tickets.filter(t=>t.series!==ESPANA_SERIES&&!['archive','na'].includes(statusOf(t)));
   const owned=collectible.reduce((a,t)=>a+count(t.key),0);
   const target=collectible.reduce((a,t)=>a+targetFor(t),0);
-  document.getElementById('owned').textContent=owned;
-  document.getElementById('target').textContent=target;
-  document.getElementById('missing').textContent=Math.max(0,target-owned);
+  const seriesOwned=Object.keys(ESPANA_UNITS).reduce((n,u)=>n+seriesTotals(u).owned,0),seriesTarget=espanaTickets().length*2*Object.keys(ESPANA_UNITS).length;
+  document.getElementById('owned').textContent=owned+seriesOwned;
+  document.getElementById('target').textContent=target+seriesTarget;
+  document.getElementById('missing').textContent=Math.max(0,target+seriesTarget-owned-seriesOwned);
   document.getElementById('unresolved').textContent=tickets.filter(t=>['unresolved','seen'].includes(statusOf(t))).length;
 }
 
+function openSeriesModal(unit){
+  activeKey=null;
+  const cfg=ESPANA_UNITS[unit],totals=seriesTotals(unit),obverse=INLINE_IMAGES[cfg.img]||'';
+  document.querySelector('#modal-bg .modal').classList.add('series-modal');
+  document.getElementById('modal-title').textContent=cfg.label;
+  document.getElementById('modal-body').className='series-body';
+  document.getElementById('modal-body').innerHTML=`<div class="series-intro">${obverse?`<img class="series-obverse" src="${obverse}" alt="${esc(cfg.short)}">`:''}<div><b>${esc(cfg.short)}</b><div class="meta">30 reversos · cada reverso se cuenta por separado para esta unidad · objetivo: 2 copias de cada uno</div><div class="copy-count">Total ${totals.owned} / ${totals.target}</div></div></div><div class="reverse-grid">${espanaTickets().map(t=>{const key=seriesCountKey(t.key,unit),c=seriesCount(t,unit),img=imageFor(t),ownership=c<=0?'missing':(c>=2?'complete':'partial');return `<div class="reverse-item"><span class="badge ${ownership==='complete'?'confirmed':(ownership==='partial'?'seen':'archive')}">${c} / 2</span>${img?`<img src="${img}" alt="${esc(labelOf(t))}">`:''}<div class="reverse-name">${esc(labelOf(t).replace(/^Reverso España Campeón 2026\s*—\s*/,''))}</div><div class="copy-row"><button onclick="changeSeriesCount('${t.key}','${unit}',-1)">−</button><div class="copy-count">${c} / 2</div><button onclick="changeSeriesCount('${t.key}','${unit}',1)">+</button></div></div>`}).join('')}</div>`;
+  document.getElementById('modal-bg').classList.add('open');
+}
+function changeSeriesCount(ticketKey,unit,d){const key=seriesCountKey(ticketKey,unit),t=ticketByKey(ticketKey);counts[key]=Math.max(0,Math.min(2,seriesCount(t,unit)+d));save();openSeriesModal(unit);render()}
+
 function openModal(key){
   activeKey=key;
+  document.querySelector('#modal-bg .modal').classList.remove('series-modal');
+  document.getElementById('modal-body').className='modal-body';
   const t=ticketByKey(key),st=statusOf(t),bid=bucketOf(t),b=BUCKETS[bid]||BUCKETS['misc-other'];
   document.getElementById('modal-title').textContent=labelOf(t);
   const img=imageFor(t),c=count(key),target=targetFor(t),seen=combinedSeen(t);
@@ -294,7 +357,7 @@ function openModal(key){
     </div>`;
   document.getElementById('modal-bg').classList.add('open');
 }
-function closeModal(){document.getElementById('modal-bg').classList.remove('open');activeKey=null}
+function closeModal(){document.getElementById('modal-bg').classList.remove('open');document.querySelector('#modal-bg .modal').classList.remove('series-modal');activeKey=null}
 function backdropClose(e){if(e.target.id==='modal-bg')closeModal()}
 function changeCount(d){if(!activeKey)return;const t=ticketByKey(activeKey),target=targetFor(t);counts[activeKey]=Math.max(0,Math.min(target,count(activeKey)+d));save();document.getElementById('modal-count').textContent=count(activeKey)+' / '+target;render()}
 function addProv(){
