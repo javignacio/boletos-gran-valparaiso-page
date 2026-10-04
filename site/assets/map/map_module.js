@@ -12,7 +12,9 @@
     populateUnits(); drawVerified(); bind(); const initial=new URLSearchParams(location.search).get('route'); if(initial) state.selected=norm(initial); render(); if(initial){const rec=state.catalog.find(r=>norm(r.route_id)===state.selected); if(rec) setTimeout(()=>selectRoute(rec),0);}
     const n=state.geo.features?.length||0;
     const covered=state.layers.size;
-    $('#geometryNotice').textContent=n?`${covered} líneas · ${n} sentidos cargados desde las secuencias de paradas publicadas por Moovit.`:'Todavía no hay trazados cargados en routes.geojson.';
+    const exact=(state.geo.features||[]).filter(f=>f.properties?.geometry_quality==='road_following_rendered_route_trace').length;
+    const approximate=n-exact;
+    $('#geometryNotice').textContent=n?`${covered} líneas · ${exact} sentidos con trazado vial exacto${approximate?` · ${approximate} aproximados por paradas (línea discontinua)`:''}.`:'Todavía no hay trazados cargados en routes.geojson.';
   }
   function populateUnits(){
     const sel=$('#unitFilter'); [...new Set(state.catalog.map(r=>r.unit))].sort().forEach(u=>{const o=document.createElement('option');o.value=u;o.textContent=u;sel.appendChild(o)});
@@ -22,7 +24,10 @@
       const rid=String(f.properties?.route_id||''); const rec=state.catalog.find(r=>norm(r.route_id)===norm(rid)); const color=rec?.ui_color||'#334155';
       const direction=f.properties?.direction||`Sentido ${(f.properties?.direction_index??0)+1}`;
       const stops=f.properties?.stop_count;
-      const lyr=L.geoJSON(f,{style:{color,weight:4,opacity:.76}}).bindPopup(`<strong>${esc(rid)}</strong><br>${esc(direction)}${stops?` · ${esc(stops)} paradas`:''}<br>${esc(rec?.unit||'')} · ${esc(rec?.operator||'')}<br><small>Fuente: página pública de Moovit · recorrido enlazado por paradas</small>`).addTo(state.map);
+      const isExact=f.properties?.geometry_quality==='road_following_rendered_route_trace';
+      const style=isExact?{color,weight:5,opacity:.9}:{color,weight:3,opacity:.55,dashArray:'7 7'};
+      const quality=isExact?'trazado vial recuperado del mapa público de Moovit':'aproximación que une paradas; no representa las calles exactas';
+      const lyr=L.geoJSON(f,{style}).bindPopup(`<strong>${esc(rid)}</strong><br>${esc(direction)}${stops?` · ${esc(stops)} paradas`:''}<br>${esc(rec?.unit||'')} · ${esc(rec?.operator||'')}<br><small>Fuente: página pública de Moovit · ${quality}</small>`).addTo(state.map);
       if(!state.layers.has(norm(rid))) state.layers.set(norm(rid),[]); state.layers.get(norm(rid)).push(lyr);
     }
   }
