@@ -6,10 +6,10 @@
   "types_total": 200,
   "types_owned": 194,
   "copies_owned": 391,
-  "copies_target": 445,
-  "copies_missing": 54,
+  "copies_target": 456,
+  "copies_missing": 65,
   "unresolved": 45,
-  "completion": 87.87,
+  "completion": 85.75,
   "metrics": [
     {
       "label": "Types owned",
@@ -17,11 +17,11 @@
     },
     {
       "label": "Copies",
-      "value": "391 / 445"
+      "value": "391 / 456"
     },
     {
       "label": "Missing",
-      "value": "54"
+      "value": "65"
     }
   ]
 }
