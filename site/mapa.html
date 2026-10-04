@@ -15,6 +15,10 @@
       <input id="search" type="search" placeholder="Buscar 209, E03, Q02, operador…" aria-label="Buscar recorrido">
       <div class="row"><select id="unitFilter" aria-label="Filtrar unidad"><option value="">Todas las unidades</option></select>
       <select id="statusFilter" aria-label="Filtrar estado"><option value="">Todos los estados</option><option value="active">Activo</option><option value="active_transitional">Transitorio</option><option value="active_observed_secondary">Observado</option></select></div>
+      <select id="lineFilter" aria-label="Mostrar una línea"><option value="">Todas las líneas</option></select>
+      <select id="directionFilter" aria-label="Mostrar un sentido" disabled><option value="">Todos los sentidos</option></select>
+      <label class="isolate-control"><input id="isolateSelection" type="checkbox" checked><span>Mostrar solo la unidad, línea o sentido seleccionado</span></label>
+      <div id="directionLegend" class="direction-legend" aria-live="polite"></div>
       <div class="row"><button id="showAll" class="btn" type="button">Ver toda la red</button><button id="clearFilters" class="btn" type="button">Limpiar</button></div>
     </div>
     <div id="count" class="summary"></div><div id="routeList" class="route-list"></div>
@@ -22,4 +26,4 @@
   <main class="map-canvas"><div id="map" aria-label="Mapa interactivo de recorridos"></div><div class="legend"><strong>Regla de datos</strong>Solo se dibujan geometrías que estén en <code>routes.geojson</code> con fuente trazable. El catálogo puede contener rutas sin trazado mientras se obtiene el GTFS/KMZ oficial.</div></main>
 </div>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
-<script src="assets/map/map_module.js?v=20261004-1"></script></body></html>
+<script src="assets/map/map_module.js?v=20261004-2"></script></body></html>
