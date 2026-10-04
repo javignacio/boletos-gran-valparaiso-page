@@ -7,7 +7,7 @@
   async function init(){
     state.map=L.map('map',{preferCanvas:true}).setView([-33.02,-71.42],10);
     L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:19,attribution:'&copy; OpenStreetMap contributors'}).addTo(state.map);
-    const [catRes,geoRes]=await Promise.all([fetch('data/map/route_catalog.json'),fetch('data/map/routes.geojson')]);
+    const [catRes,geoRes]=await Promise.all([fetch('data/map/route_catalog.json?v=20261004-1'),fetch('data/map/routes.geojson?v=20261004-1')]);
     const cat=await catRes.json(); state.catalog=cat.routes||[]; state.geo=await geoRes.json();
     populateUnits(); drawVerified(); bind(); const initial=new URLSearchParams(location.search).get('route'); if(initial) state.selected=norm(initial); render(); if(initial){const rec=state.catalog.find(r=>norm(r.route_id)===state.selected); if(rec) setTimeout(()=>selectRoute(rec),0);}
     const n=state.geo.features?.length||0;
