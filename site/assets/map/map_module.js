@@ -9,14 +9,14 @@
   async function init(){
     state.map=L.map('map',{preferCanvas:true}).setView([-33.02,-71.42],10);
     L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:19,attribution:'&copy; OpenStreetMap contributors'}).addTo(state.map);
-    const [catRes,geoRes]=await Promise.all([fetch('data/map/route_catalog.json?v=20261004-2'),fetch('data/map/routes.geojson?v=20261004-2')]);
+    const [catRes,geoRes]=await Promise.all([fetch('data/map/route_catalog.json?v=20261004-3'),fetch('data/map/routes.geojson?v=20261004-3')]);
     const cat=await catRes.json(); state.catalog=cat.routes||[]; state.geo=await geoRes.json();
     populateUnits(); drawVerified(); populateLines(); bind(); const initial=new URLSearchParams(location.search).get('route'); render(); if(initial){const rec=state.catalog.find(r=>norm(r.route_id)===norm(initial)); if(rec) setTimeout(()=>selectRoute(rec),0);}
     const n=state.geo.features?.length||0;
     const covered=state.layers.size;
-    const exact=(state.geo.features||[]).filter(f=>f.properties?.geometry_quality==='road_following_rendered_route_trace').length;
-    const approximate=n-exact;
-    $('#geometryNotice').textContent=n?`${covered} líneas · ${exact} sentidos con trazado vial exacto${approximate?` · ${approximate} aproximados por paradas (línea discontinua)`:''}.`:'Todavía no hay trazados cargados en routes.geojson.';
+    const roadFollowing=(state.geo.features||[]).filter(f=>String(f.properties?.geometry_quality||'').startsWith('road_following_')).length;
+    const approximate=n-roadFollowing;
+    $('#geometryNotice').textContent=n?`${covered} líneas · ${roadFollowing} sentidos siguiendo calles${approximate?` · ${approximate} aproximados por paradas (línea discontinua)`:''}.`:'Todavía no hay trazados cargados en routes.geojson.';
   }
   function populateUnits(){
     const sel=$('#unitFilter'); [...new Set(state.catalog.map(r=>r.unit))].sort().forEach(u=>{const o=document.createElement('option');o.value=u;o.textContent=u;sel.appendChild(o)});
@@ -26,11 +26,14 @@
       const rid=String(f.properties?.route_id||''); const rec=state.catalog.find(r=>norm(r.route_id)===norm(rid)); const color=rec?.ui_color||'#334155';
       const direction=f.properties?.direction||`Sentido ${(f.properties?.direction_index??0)+1}`;
       const stops=f.properties?.stop_count;
-      const isExact=f.properties?.geometry_quality==='road_following_rendered_route_trace';
-      const style=isExact?{color,weight:5,opacity:.9}:{color,weight:3,opacity:.55,dashArray:'7 7'};
-      const quality=isExact?'trazado vial recuperado del mapa público de Moovit':'aproximación que une paradas; no representa las calles exactas';
-      const lyr=L.geoJSON(f,{style}).bindPopup(`<strong>${esc(rid)}</strong><br>${esc(direction)}${stops?` · ${esc(stops)} paradas`:''}<br>${esc(rec?.unit||'')} · ${esc(rec?.operator||'')}<br><small>Fuente: página pública de Moovit · ${quality}</small>`).addTo(state.map);
-      const meta={layer:lyr,rid:norm(rid),routeId:rid,unit:rec?.unit||'',directionIndex:String(f.properties?.direction_index??0),direction,stops,isExact,routeColor:color};
+      const geometryQuality=String(f.properties?.geometry_quality||'');
+      const isRoadFollowing=geometryQuality.startsWith('road_following_');
+      const isExact=geometryQuality==='road_following_rendered_route_trace';
+      const style=isRoadFollowing?{color,weight:5,opacity:.9}:{color,weight:3,opacity:.55,dashArray:'7 7'};
+      const quality=isExact?'trazado vial recuperado del mapa público de Moovit':isRoadFollowing?'trazado por calles calculado a través de la secuencia de paradas':'aproximación que une paradas; no representa las calles exactas';
+      const source=isExact?'mapa público de Moovit':isRoadFollowing?'OSRM y paradas públicas de Moovit':'página pública de Moovit';
+      const lyr=L.geoJSON(f,{style}).bindPopup(`<strong>${esc(rid)}</strong><br>${esc(direction)}${stops?` · ${esc(stops)} paradas`:''}<br>${esc(rec?.unit||'')} · ${esc(rec?.operator||'')}<br><small>Fuente: ${source} · ${quality}</small>`).addTo(state.map);
+      const meta={layer:lyr,rid:norm(rid),routeId:rid,unit:rec?.unit||'',directionIndex:String(f.properties?.direction_index??0),direction,stops,isExact:isRoadFollowing,routeColor:color};
       if(!state.layers.has(meta.rid)) state.layers.set(meta.rid,[]); state.layers.get(meta.rid).push(meta); state.allLayers.push(meta);
     }
   }
