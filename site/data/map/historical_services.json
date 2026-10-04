@@ -1,0 +1,454 @@
+{
+  "records": [
+    {
+      "route_id": "101",
+      "former_unit": "UN1",
+      "former_operator": "Fenur S.A.",
+      "valid_from": "2020-09-01",
+      "valid_to": "2025-09-01",
+      "status": "unit_reassigned",
+      "replacement_or_note": "Reassigned among UN14-UN18; see route_catalog.json",
+      "source_id": "current_un14_18_assignment"
+    },
+    {
+      "route_id": "101D",
+      "former_unit": "UN1",
+      "former_operator": "Fenur S.A.",
+      "valid_from": "2020-09-01",
+      "valid_to": "2025-09-01",
+      "status": "unit_reassigned",
+      "replacement_or_note": "Reassigned among UN14-UN18; see route_catalog.json",
+      "source_id": "current_un14_18_assignment"
+    },
+    {
+      "route_id": "102",
+      "former_unit": "UN1",
+      "former_operator": "Fenur S.A.",
+      "valid_from": "2020-09-01",
+      "valid_to": "2025-09-01",
+      "status": "unit_reassigned",
+      "replacement_or_note": "Reassigned among UN14-UN18; see route_catalog.json",
+      "source_id": "current_un14_18_assignment"
+    },
+    {
+      "route_id": "102D",
+      "former_unit": "UN1",
+      "former_operator": "Fenur S.A.",
+      "valid_from": "2020-09-01",
+      "valid_to": "2025-09-01",
+      "status": "unit_reassigned",
+      "replacement_or_note": "Reassigned among UN14-UN18; see route_catalog.json",
+      "source_id": "current_un14_18_assignment"
+    },
+    {
+      "route_id": "103",
+      "former_unit": "UN1",
+      "former_operator": "Fenur S.A.",
+      "valid_from": "2020-09-01",
+      "valid_to": "2025-09-01",
+      "status": "unit_reassigned",
+      "replacement_or_note": "Reassigned among UN14-UN18; see route_catalog.json",
+      "source_id": "current_un14_18_assignment"
+    },
+    {
+      "route_id": "104",
+      "former_unit": "UN1",
+      "former_operator": "Fenur S.A.",
+      "valid_from": "2020-09-01",
+      "valid_to": "2025-09-01",
+      "status": "unit_reassigned",
+      "replacement_or_note": "Reassigned among UN14-UN18; see route_catalog.json",
+      "source_id": "current_un14_18_assignment"
+    },
+    {
+      "route_id": "105",
+      "former_unit": "UN1",
+      "former_operator": "Fenur S.A.",
+      "valid_from": "2020-09-01",
+      "valid_to": "2025-09-01",
+      "status": "unit_reassigned",
+      "replacement_or_note": "Reassigned among UN14-UN18; see route_catalog.json",
+      "source_id": "current_un14_18_assignment"
+    },
+    {
+      "route_id": "106",
+      "former_unit": "UN1",
+      "former_operator": "Fenur S.A.",
+      "valid_from": "2020-09-01",
+      "valid_to": "2025-09-01",
+      "status": "unit_reassigned",
+      "replacement_or_note": "Reassigned among UN14-UN18; see route_catalog.json",
+      "source_id": "current_un14_18_assignment"
+    },
+    {
+      "route_id": "106D",
+      "former_unit": "UN1",
+      "former_operator": "Fenur S.A.",
+      "valid_from": "2020-09-01",
+      "valid_to": "2025-09-01",
+      "status": "unit_reassigned",
+      "replacement_or_note": "Reassigned among UN14-UN18; see route_catalog.json",
+      "source_id": "current_un14_18_assignment"
+    },
+    {
+      "route_id": "107",
+      "former_unit": "UN1",
+      "former_operator": "Fenur S.A.",
+      "valid_from": "2020-09-01",
+      "valid_to": "2025-09-01",
+      "status": "unit_reassigned",
+      "replacement_or_note": "Reassigned among UN14-UN18; see route_catalog.json",
+      "source_id": "current_un14_18_assignment"
+    },
+    {
+      "route_id": "107D",
+      "former_unit": "UN1",
+      "former_operator": "Fenur S.A.",
+      "valid_from": "2020-09-01",
+      "valid_to": "2025-09-01",
+      "status": "unit_reassigned",
+      "replacement_or_note": "Reassigned among UN14-UN18; see route_catalog.json",
+      "source_id": "current_un14_18_assignment"
+    },
+    {
+      "route_id": "108",
+      "former_unit": "UN1",
+      "former_operator": "Fenur S.A.",
+      "valid_from": "2020-09-01",
+      "valid_to": "2025-09-01",
+      "status": "unit_reassigned",
+      "replacement_or_note": "Reassigned among UN14-UN18; see route_catalog.json",
+      "source_id": "current_un14_18_assignment"
+    },
+    {
+      "route_id": "109",
+      "former_unit": "UN1",
+      "former_operator": "Fenur S.A.",
+      "valid_from": "2020-09-01",
+      "valid_to": "2025-09-01",
+      "status": "unit_reassigned",
+      "replacement_or_note": "Reassigned among UN14-UN18; see route_catalog.json",
+      "source_id": "current_un14_18_assignment"
+    },
+    {
+      "route_id": "110",
+      "former_unit": "UN1",
+      "former_operator": "Fenur S.A.",
+      "valid_from": "2020-09-01",
+      "valid_to": "2025-09-01",
+      "status": "unit_reassigned",
+      "replacement_or_note": "Reassigned among UN14-UN18; see route_catalog.json",
+      "source_id": "current_un14_18_assignment"
+    },
+    {
+      "route_id": "111",
+      "former_unit": "UN1",
+      "former_operator": "Fenur S.A.",
+      "valid_from": "2020-09-01",
+      "valid_to": "2025-09-01",
+      "status": "unit_reassigned",
+      "replacement_or_note": "Reassigned among UN14-UN18; see route_catalog.json",
+      "source_id": "current_un14_18_assignment"
+    },
+    {
+      "route_id": "111D",
+      "former_unit": "UN1",
+      "former_operator": "Fenur S.A.",
+      "valid_from": "2020-09-01",
+      "valid_to": "2025-09-01",
+      "status": "unit_reassigned",
+      "replacement_or_note": "Reassigned among UN14-UN18; see route_catalog.json",
+      "source_id": "current_un14_18_assignment"
+    },
+    {
+      "route_id": "112",
+      "former_unit": "UN1",
+      "former_operator": "Fenur S.A.",
+      "valid_from": "2020-09-01",
+      "valid_to": "2025-09-01",
+      "status": "unit_reassigned",
+      "replacement_or_note": "Reassigned among UN14-UN18; see route_catalog.json",
+      "source_id": "current_un14_18_assignment"
+    },
+    {
+      "route_id": "113",
+      "former_unit": "UN1",
+      "former_operator": "Fenur S.A.",
+      "valid_from": "2020-09-01",
+      "valid_to": "2025-09-01",
+      "status": "unit_reassigned",
+      "replacement_or_note": "Reassigned among UN14-UN18; see route_catalog.json",
+      "source_id": "current_un14_18_assignment"
+    },
+    {
+      "route_id": "113D",
+      "former_unit": "UN1",
+      "former_operator": "Fenur S.A.",
+      "valid_from": "2020-09-01",
+      "valid_to": "2025-09-01",
+      "status": "unit_reassigned",
+      "replacement_or_note": "Reassigned among UN14-UN18; see route_catalog.json",
+      "source_id": "current_un14_18_assignment"
+    },
+    {
+      "route_id": "114",
+      "former_unit": "UN1",
+      "former_operator": "Fenur S.A.",
+      "valid_from": "2020-09-01",
+      "valid_to": "2025-09-01",
+      "status": "unit_reassigned",
+      "replacement_or_note": "Reassigned among UN14-UN18; see route_catalog.json",
+      "source_id": "current_un14_18_assignment"
+    },
+    {
+      "route_id": "115",
+      "former_unit": "UN1",
+      "former_operator": "Fenur S.A.",
+      "valid_from": "2020-09-01",
+      "valid_to": "2025-09-01",
+      "status": "unit_reassigned",
+      "replacement_or_note": "Reassigned among UN14-UN18; see route_catalog.json",
+      "source_id": "current_un14_18_assignment"
+    },
+    {
+      "route_id": "115D",
+      "former_unit": "UN1",
+      "former_operator": "Fenur S.A.",
+      "valid_from": "2020-09-01",
+      "valid_to": "2025-09-01",
+      "status": "unit_reassigned",
+      "replacement_or_note": "Reassigned among UN14-UN18; see route_catalog.json",
+      "source_id": "current_un14_18_assignment"
+    },
+    {
+      "route_id": "116A",
+      "former_unit": "UN1",
+      "former_operator": "Fenur S.A.",
+      "valid_from": "2020-09-01",
+      "valid_to": "2025-09-01",
+      "status": "unit_reassigned",
+      "replacement_or_note": "Reassigned among UN14-UN18; see route_catalog.json",
+      "source_id": "current_un14_18_assignment"
+    },
+    {
+      "route_id": "116B",
+      "former_unit": "UN1",
+      "former_operator": "Fenur S.A.",
+      "valid_from": "2020-09-01",
+      "valid_to": "2025-09-01",
+      "status": "unit_reassigned",
+      "replacement_or_note": "Reassigned among UN14-UN18; see route_catalog.json",
+      "source_id": "current_un14_18_assignment"
+    },
+    {
+      "route_id": "117",
+      "former_unit": "UN1",
+      "former_operator": "Fenur S.A.",
+      "valid_from": "2020-09-01",
+      "valid_to": "2025-09-01",
+      "status": "unit_reassigned",
+      "replacement_or_note": "Reassigned among UN14-UN18; see route_catalog.json",
+      "source_id": "current_un14_18_assignment"
+    },
+    {
+      "route_id": "119",
+      "former_unit": "UN1",
+      "former_operator": "Fenur S.A.",
+      "valid_from": "2020-09-01",
+      "valid_to": "2025-09-01",
+      "status": "unit_reassigned",
+      "replacement_or_note": "Reassigned among UN14-UN18; see route_catalog.json",
+      "source_id": "current_un14_18_assignment"
+    },
+    {
+      "route_id": "121",
+      "former_unit": "UN1",
+      "former_operator": "Fenur S.A.",
+      "valid_from": "2020-09-01",
+      "valid_to": "2025-09-01",
+      "status": "unit_reassigned",
+      "replacement_or_note": "Reassigned among UN14-UN18; see route_catalog.json",
+      "source_id": "current_un14_18_assignment"
+    },
+    {
+      "route_id": "124",
+      "former_unit": "UN1",
+      "former_operator": "Fenur S.A.",
+      "valid_from": "2020-09-01",
+      "valid_to": "2025-09-01",
+      "status": "unit_reassigned",
+      "replacement_or_note": "Reassigned among UN14-UN18; see route_catalog.json",
+      "source_id": "current_un14_18_assignment"
+    },
+    {
+      "route_id": "126",
+      "former_unit": "UN1",
+      "former_operator": "Fenur S.A.",
+      "valid_from": "2020-09-01",
+      "valid_to": "2025-09-01",
+      "status": "unit_reassigned",
+      "replacement_or_note": "Reassigned among UN14-UN18; see route_catalog.json",
+      "source_id": "current_un14_18_assignment"
+    },
+    {
+      "route_id": "001",
+      "former_unit": "UN10",
+      "former_operator": "Codetran S.A.",
+      "valid_from": "2007",
+      "valid_to": "2019-08",
+      "status": "discontinued",
+      "replacement_or_note": "Former Valparaíso ↔ Peñuelas/Placilla/Curauma services.",
+      "source_id": "current_route_roster_secondary"
+    },
+    {
+      "route_id": "002",
+      "former_unit": "UN10",
+      "former_operator": "Codetran S.A.",
+      "valid_from": "2007",
+      "valid_to": "2019-08",
+      "status": "discontinued",
+      "replacement_or_note": "Former Valparaíso ↔ Peñuelas/Placilla/Curauma services.",
+      "source_id": "current_route_roster_secondary"
+    },
+    {
+      "route_id": "C01",
+      "former_unit": "UN11",
+      "former_operator": "Transportes Rojas y Soto Ltda.",
+      "valid_from": "2023",
+      "valid_to": "2026-01-31",
+      "status": "contract_ended",
+      "replacement_or_note": "Emergency EFE replacement services started 2026-02-02.",
+      "source_id": "c_routes_efe_feb2026"
+    },
+    {
+      "route_id": "C02",
+      "former_unit": "UN11",
+      "former_operator": "Transportes Rojas y Soto Ltda.",
+      "valid_from": "2023",
+      "valid_to": "2026-01-31",
+      "status": "contract_ended",
+      "replacement_or_note": "Emergency EFE replacement services started 2026-02-02.",
+      "source_id": "c_routes_efe_feb2026"
+    },
+    {
+      "route_id": "C03",
+      "former_unit": "UN11",
+      "former_operator": "Transportes Rojas y Soto Ltda.",
+      "valid_from": "2023",
+      "valid_to": "2026-01-31",
+      "status": "contract_ended",
+      "replacement_or_note": "Emergency EFE replacement services started 2026-02-02.",
+      "source_id": "c_routes_efe_feb2026"
+    },
+    {
+      "route_id": "C04",
+      "former_unit": "UN11",
+      "former_operator": "Ferrobus / prior operator",
+      "valid_from": "2023",
+      "valid_to": "unknown",
+      "status": "historical_inactive",
+      "replacement_or_note": "Not in the three-service roster at contract end; exact withdrawal date should be researched before map timeline use.",
+      "source_id": "current_route_roster_secondary"
+    },
+    {
+      "route_id": "C05",
+      "former_unit": "UN12",
+      "former_operator": "none",
+      "valid_from": "",
+      "valid_to": "",
+      "status": "never_operated_planned",
+      "replacement_or_note": "UN12 tender was deserted / services never became operational.",
+      "source_id": "current_route_roster_secondary"
+    },
+    {
+      "route_id": "C06",
+      "former_unit": "UN12",
+      "former_operator": "none",
+      "valid_from": "",
+      "valid_to": "",
+      "status": "never_operated_planned",
+      "replacement_or_note": "UN12 tender was deserted / services never became operational.",
+      "source_id": "current_route_roster_secondary"
+    },
+    {
+      "route_id": "C07",
+      "former_unit": "UN12",
+      "former_operator": "none",
+      "valid_from": "",
+      "valid_to": "",
+      "status": "never_operated_planned",
+      "replacement_or_note": "UN12 tender was deserted / services never became operational.",
+      "source_id": "current_route_roster_secondary"
+    },
+    {
+      "route_id": "208",
+      "former_unit": "UN2",
+      "former_operator": "Viña Bus S.A.",
+      "valid_from": "historical",
+      "valid_to": "unknown",
+      "status": "historical_inactive",
+      "replacement_or_note": "Historically appears in UN2/Viña Bus rosters and on tickets, but is absent from the 2026 consolidated current roster. Exact discontinuation date remains an explicit research gap.",
+      "source_id": "current_route_roster_secondary"
+    },
+    {
+      "route_id": "206",
+      "former_unit": "UN2",
+      "former_operator": "Viña Bus S.A.",
+      "valid_from": "historical",
+      "valid_to": "unknown",
+      "status": "historical_inactive",
+      "replacement_or_note": "Absent from 2026 consolidated roster; verify exact withdrawal date.",
+      "source_id": "current_route_roster_secondary"
+    },
+    {
+      "route_id": "211",
+      "former_unit": "UN2",
+      "former_operator": "Viña Bus S.A.",
+      "valid_from": "historical",
+      "valid_to": "unknown",
+      "status": "historical_inactive",
+      "replacement_or_note": "Absent from 2026 consolidated roster; verify exact withdrawal date.",
+      "source_id": "current_route_roster_secondary"
+    },
+    {
+      "route_id": "216",
+      "former_unit": "UN2",
+      "former_operator": "Viña Bus S.A.",
+      "valid_from": "historical",
+      "valid_to": "unknown",
+      "status": "historical_inactive",
+      "replacement_or_note": "Absent from 2026 consolidated roster; verify exact withdrawal date.",
+      "source_id": "current_route_roster_secondary"
+    },
+    {
+      "route_id": "610",
+      "former_unit": "UN6",
+      "former_operator": "Buses del Gran Valparaíso S.A.",
+      "valid_from": "historical",
+      "valid_to": "unknown",
+      "status": "historical_inactive_or_conflicting",
+      "replacement_or_note": "Appears in older rosters but not the consolidated 2026 active list.",
+      "source_id": "current_route_roster_secondary"
+    },
+    {
+      "route_id": "707",
+      "former_unit": "UN7",
+      "former_operator": "Top Tur S.A.",
+      "valid_from": "historical",
+      "valid_to": "unknown",
+      "status": "historical_inactive",
+      "replacement_or_note": "Not in current 2026 six-route roster (701-706).",
+      "source_id": "current_route_roster_secondary"
+    },
+    {
+      "route_id": "708",
+      "former_unit": "UN7",
+      "former_operator": "Top Tur S.A.",
+      "valid_from": "historical",
+      "valid_to": "unknown",
+      "status": "historical_inactive",
+      "replacement_or_note": "Not in current 2026 six-route roster (701-706).",
+      "source_id": "current_route_roster_secondary"
+    }
+  ]
+}

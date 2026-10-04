@@ -1,0 +1,81 @@
+{
+  "as_of": "2026-10-03",
+  "official_activation_window": "second half of 2027",
+  "official_activation_source_id": "official_contracts_2027",
+  "units": [
+    {
+      "unit": "US1",
+      "operator": "Consorcio Valparaíso",
+      "status": "contracted_future",
+      "services": [
+        "103",
+        "105",
+        "105D",
+        "108",
+        "110",
+        "111",
+        "111D",
+        "112",
+        "113",
+        "113D",
+        "302",
+        "303",
+        "310",
+        "311",
+        "N01",
+        "N02",
+        "N04",
+        "N05",
+        "N06",
+        "N07",
+        "N08",
+        "N10"
+      ],
+      "vehicles_approx": 300,
+      "route_roster_source_id": "future_us1_us2_secondary"
+    },
+    {
+      "unit": "US2",
+      "operator": "Viña Bus S.A.",
+      "status": "contracted_future",
+      "services": [
+        "309",
+        "402",
+        "406",
+        "413",
+        "601",
+        "602",
+        "608",
+        "609",
+        "901",
+        "902",
+        "614",
+        "615",
+        "616",
+        "617",
+        "N11",
+        "N12",
+        "N13"
+      ],
+      "vehicles_approx": 300,
+      "route_roster_source_id": "future_us1_us2_secondary"
+    },
+    {
+      "unit": "planned_7_service_electrification",
+      "operator": "TBD",
+      "status": "historic_tender_reference_needs_current_status_check",
+      "services": [
+        "104",
+        "115",
+        "120",
+        "121",
+        "122",
+        "123",
+        "125"
+      ],
+      "vehicles_approx": null,
+      "route_roster_source_id": "official_kmz_7_electric_services",
+      "note": "Do not label this as active or as UN20 unless an up-to-date official act confirms the current unit name/status."
+    }
+  ]
+}
