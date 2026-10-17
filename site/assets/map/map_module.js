@@ -12,7 +12,7 @@
   async function init(){
     state.map=L.map('map',{preferCanvas:true}).setView(cityView.valparaiso.center,cityView.valparaiso.zoom);
     L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:19,attribution:'&copy; OpenStreetMap contributors'}).addTo(state.map);
-    const [catRes,geoRes,osCatRes,osGeoRes]=await Promise.all([fetch('data/map/route_catalog.json?v=20261017-1'),fetch('data/map/routes.geojson?v=20261017-1'),fetch('data/map/osorno_catalog.json?v=20261017-1'),fetch('data/map/osorno_routes.geojson?v=20261017-1')]);
+    const [catRes,geoRes,osCatRes,osGeoRes]=await Promise.all([fetch('data/map/route_catalog.json?v=20261017-1'),fetch('data/map/routes.geojson?v=20261017-1'),fetch('data/map/osorno_catalog.json?v=20261017-2'),fetch('data/map/osorno_routes.geojson?v=20261017-2')]);
     const cat=await catRes.json(),geo=await geoRes.json(),osCat=await osCatRes.json(),osGeo=await osGeoRes.json();
     state.catalog=[...(cat.routes||[]).map(r=>({...r,city:'valparaiso'})),...(osCat.routes||[]).map(r=>({...r,city:'osorno'}))];
     state.geo={type:'FeatureCollection',features:[...(geo.features||[]).map(f=>({...f,properties:{...f.properties,city:'valparaiso'}})),...(osGeo.features||[]).map(f=>({...f,properties:{...f.properties,city:'osorno'}}))]};
@@ -21,7 +21,7 @@
   function cityCatalog(){return state.catalog.filter(r=>r.city===state.selectedCity)}
   function cityFeatures(){return (state.geo.features||[]).filter(f=>f.properties?.city===state.selectedCity)}
   function updateGeometryNotice(){const features=cityFeatures(),keys=new Set(features.map(f=>routeKey(state.selectedCity,f.properties?.route_id)));const roadFollowing=features.filter(f=>String(f.properties?.geometry_quality||'').startsWith('road_following_')).length;const approximate=features.length-roadFollowing;$('#geometryNotice').textContent=features.length?`${keys.size} líneas · ${roadFollowing} sentidos siguiendo calles${approximate?` · ${approximate} aproximados por paradas`:''}.`:'Todavía no hay trazados cargados para esta ciudad.'}
-  function applyCity(shouldFit=true){state.selectedUnit='';state.selectedLine=null;state.selectedDirection='';$('#unitFilter').innerHTML='<option value="">Todas las unidades</option>';$('#search').value='';populateUnits();populateLines();$('#mapTitle').textContent=`${cityName(state.selectedCity)} — Mapa de recorridos`;$('#mapSubtitle').textContent=state.selectedCity==='osorno'?'Líneas urbanas 1, 2, 3, 4, 5 y 7':'Catálogo de servicios actuales, transitorios e históricos';$('#search').placeholder=state.selectedCity==='osorno'?'Buscar línea, variante u operador…':'Buscar 209, E03, Q02, operador…';updateGeometryNotice();render();if(shouldFit)fitVisible()}
+  function applyCity(shouldFit=true){state.selectedUnit='';state.selectedLine=null;state.selectedDirection='';$('#unitFilter').innerHTML='<option value="">Todas las unidades</option>';$('#search').value='';populateUnits();populateLines();$('#mapTitle').textContent=`${cityName(state.selectedCity)} — Mapa de recorridos`;$('#mapSubtitle').textContent=state.selectedCity==='osorno'?'Todas las variantes urbanas de las líneas 1, 2, 3, 4, 5 y 7':'Catálogo de servicios actuales, transitorios e históricos';$('#search').placeholder=state.selectedCity==='osorno'?'Buscar línea, variante u operador…':'Buscar 209, E03, Q02, operador…';updateGeometryNotice();render();if(shouldFit)fitVisible()}
   function populateUnits(){
     const sel=$('#unitFilter'); [...new Set(cityCatalog().map(r=>r.unit))].sort().forEach(u=>{const o=document.createElement('option');o.value=u;o.textContent=u;sel.appendChild(o)});
   }
@@ -31,13 +31,16 @@
       const direction=f.properties?.direction||`Sentido ${(f.properties?.direction_index??0)+1}`;
       const stops=f.properties?.stop_count;
       const geometryQuality=String(f.properties?.geometry_quality||'');
+      const geometryMethod=String(f.properties?.geometry_method||'');
       const isRoadFollowing=geometryQuality.startsWith('road_following_');
       const isExact=geometryQuality==='road_following_rendered_route_trace';
       const style=isRoadFollowing?{color,weight:5,opacity:.9}:{color,weight:3,opacity:.55,dashArray:'7 7'};
-      const quality=isExact?'trazado vial recuperado del mapa público de Moovit':isRoadFollowing?'trazado por calles calculado a través de la secuencia de paradas':'aproximación que une paradas; no representa las calles exactas';
-      const source=isExact?'mapa público de Moovit':isRoadFollowing?'OSRM y paradas públicas de Moovit':'página pública de Moovit';
-      const lyr=L.geoJSON(f,{style}).bindPopup(`<strong>${esc(rid)}</strong><br>${esc(direction)}${stops?` · ${esc(stops)} paradas`:''}<br>${esc(rec?.unit||'')} · ${esc(rec?.operator||'')}<br><small>Fuente: ${source} · ${quality}</small>`).addTo(state.map);
-      const meta={layer:lyr,city,rid:norm(rid),routeId:rid,unit:rec?.unit||'',directionIndex:String(f.properties?.direction_index??0),direction,stops,isExact:isRoadFollowing,routeColor:color};
+      const official=geometryMethod.includes('official_dtpr'),corridor=geometryMethod.includes('published_corridor');
+      const quality=isExact?'trazado vial recuperado del mapa público de Moovit':official?'trazado por calles siguiendo la secuencia vial oficial':corridor?'trazado por calles siguiendo el corredor publicado':isRoadFollowing?'trazado por calles calculado a través de la secuencia de paradas':'aproximación que une paradas; no representa las calles exactas';
+      const source=isExact?'mapa público de Moovit':official?'programa oficial DTPR y OSRM':corridor?'descripción pública del servicio y OSRM':isRoadFollowing?'OSRM y paradas públicas de Moovit':'página pública de Moovit';
+      const waypointLabel=official?'cruces oficiales':corridor?'puntos del corredor':'paradas';
+      const lyr=L.geoJSON(f,{style}).bindPopup(`<strong>${esc(rid)}</strong><br>${esc(direction)}${stops?` · ${esc(stops)} ${waypointLabel}`:''}<br>${esc(rec?.unit||'')} · ${esc(rec?.operator||'')}<br><small>Fuente: ${source} · ${quality}</small>`).addTo(state.map);
+      const meta={layer:lyr,city,rid:norm(rid),routeId:rid,unit:rec?.unit||'',directionIndex:String(f.properties?.direction_index??0),direction,stops,waypointLabel,isExact:isRoadFollowing,routeColor:color};
       const key=routeKey(city,rid);if(!state.layers.has(key)) state.layers.set(key,[]); state.layers.get(key).push(meta); state.allLayers.push(meta);
     }
   }
@@ -56,7 +59,7 @@
   }
   function renderDirectionLegend(directions){
     const box=$('#directionLegend');box.innerHTML='';box.classList.toggle('visible',directions.length>0);
-    directions.forEach((m,i)=>{const b=document.createElement('button');b.type='button';b.className='direction-chip'+(state.selectedDirection===m.directionIndex?' active':'');b.innerHTML=`<span class="direction-dot" style="background:${directionColor(m.directionIndex)}"></span><span class="direction-label">Sentido ${i+1}: ${esc(m.direction)}</span><span class="direction-stops">${m.stops?`${esc(m.stops)} paradas`:''}</span>`;b.addEventListener('click',()=>{state.selectedDirection=state.selectedDirection===m.directionIndex?'':m.directionIndex;$('#directionFilter').value=state.selectedDirection;render();fitScope()});box.appendChild(b)});
+    directions.forEach((m,i)=>{const b=document.createElement('button');b.type='button';b.className='direction-chip'+(state.selectedDirection===m.directionIndex?' active':'');b.innerHTML=`<span class="direction-dot" style="background:${directionColor(m.directionIndex)}"></span><span class="direction-label">Sentido ${i+1}: ${esc(m.direction)}</span><span class="direction-stops">${m.stops?`${esc(m.stops)} ${esc(m.waypointLabel||'paradas')}`:''}</span>`;b.addEventListener('click',()=>{state.selectedDirection=state.selectedDirection===m.directionIndex?'':m.directionIndex;$('#directionFilter').value=state.selectedDirection;render();fitScope()});box.appendChild(b)});
   }
   function bind(){
     $('#cityFilter').addEventListener('change',()=>{state.selectedCity=$('#cityFilter').value;applyCity()});

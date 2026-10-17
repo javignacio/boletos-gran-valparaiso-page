@@ -3,74 +3,22 @@
     "city": "osorno",
     "city_label": "Osorno",
     "updated": "2026-10-17",
-    "note": "Ticket-line view of the regulated urban services in Osorno. Public legacy route identifiers are retained in the geometry metadata when they differ from the post-2021 ticket line number."
+    "note": "Every documented current service variant is listed separately while remaining grouped under its ticket line."
   },
   "routes": [
-    {
-      "city": "osorno",
-      "route_id": "1",
-      "unit": "Osorno L1",
-      "operator": "Quinto Centenario",
-      "origin": "Quinto Centenario / Rahue",
-      "destination": "Centro / ULA",
-      "status": "active",
-      "ui_color": "#d62828",
-      "variants": ["1A", "1B", "1C", "1D"]
-    },
-    {
-      "city": "osorno",
-      "route_id": "2",
-      "unit": "Osorno L2",
-      "operator": "Transportes Centenario",
-      "origin": "Rahue Alto",
-      "destination": "Universidad de Los Lagos",
-      "status": "active",
-      "ui_color": "#f4a261",
-      "variants": ["2A", "2B"]
-    },
-    {
-      "city": "osorno",
-      "route_id": "3",
-      "unit": "Osorno L3",
-      "operator": "Transportes Rahue Alto",
-      "origin": "Rahue",
-      "destination": "Tec. ULA",
-      "status": "active",
-      "ui_color": "#2a9d8f",
-      "variants": ["3", "3A"]
-    },
-    {
-      "city": "osorno",
-      "route_id": "4",
-      "unit": "Osorno L4",
-      "operator": "Vía Azul",
-      "origin": "Rahue / Mirasur",
-      "destination": "Universidad de Los Lagos",
-      "status": "active",
-      "ui_color": "#277da1",
-      "variants": ["4"]
-    },
-    {
-      "city": "osorno",
-      "route_id": "5",
-      "unit": "Osorno L5",
-      "operator": "Quinto Centenario",
-      "origin": "Ovejería",
-      "destination": "Centro / sector oriente",
-      "status": "active",
-      "ui_color": "#7b2cbf",
-      "variants": ["5"]
-    },
-    {
-      "city": "osorno",
-      "route_id": "7",
-      "unit": "Osorno L7",
-      "operator": "Transportes Francke",
-      "origin": "San Maximiliano Kolbe",
-      "destination": "Francke",
-      "status": "active",
-      "ui_color": "#0081a7",
-      "variants": ["7", "7A"]
-    }
+    {"city":"osorno","route_id":"1A","unit":"Osorno L1","operator":"Quinto Centenario","origin":"Villa Lololhue","destination":"Hospital","status":"active","ui_color":"#b91c1c"},
+    {"city":"osorno","route_id":"1B","unit":"Osorno L1","operator":"Quinto Centenario","origin":"Santisima Trinidad","destination":"Universidad de Los Lagos","status":"active","ui_color":"#dc2626"},
+    {"city":"osorno","route_id":"1C","unit":"Osorno L1","operator":"Quinto Centenario","origin":"Villa Lololhue","destination":"Instituto Tecnologico","status":"active","ui_color":"#ef4444"},
+    {"city":"osorno","route_id":"1D","unit":"Osorno L1","operator":"Quinto Centenario","origin":"Villa Lololhue / Azapa","destination":"Universidad de Los Lagos","status":"active","ui_color":"#f87171"},
+    {"city":"osorno","route_id":"2A","unit":"Osorno L2","operator":"Transportes Centenario","origin":"Portal Osorno","destination":"Universidad de Los Lagos","status":"active","ui_color":"#ea580c"},
+    {"city":"osorno","route_id":"2B","unit":"Osorno L2","operator":"Transportes Centenario","origin":"Portal Osorno","destination":"Instituto Tecnologico","status":"active","ui_color":"#f97316"},
+    {"city":"osorno","route_id":"3","unit":"Osorno L3","operator":"Transportes Rahue Alto","origin":"Rahue Alto","destination":"Instituto Tecnologico","status":"active","ui_color":"#0f766e"},
+    {"city":"osorno","route_id":"3A","unit":"Osorno L3","operator":"Transportes Rahue Alto","origin":"Rahue Alto","destination":"Instituto Tecnologico","status":"active","ui_color":"#14b8a6"},
+    {"city":"osorno","route_id":"4","unit":"Osorno L4","operator":"Via Azul","origin":"Mirasur","destination":"Universidad de Los Lagos","status":"active","ui_color":"#2563eb"},
+    {"city":"osorno","route_id":"5","unit":"Osorno L5","operator":"Quinto Centenario","origin":"Ovejeria","destination":"Instituto Tecnologico","status":"active","ui_color":"#7e22ce"},
+    {"city":"osorno","route_id":"5H","unit":"Osorno L5","operator":"Quinto Centenario","origin":"Ovejeria","destination":"Hospital / Universidad de Los Lagos","status":"active","ui_color":"#a855f7"},
+    {"city":"osorno","route_id":"7","unit":"Osorno L7","operator":"Frankol","origin":"Francke","destination":"San Maximiliano Kolbe","status":"active","ui_color":"#0369a1"},
+    {"city":"osorno","route_id":"7A","unit":"Osorno L7","operator":"Frankol","origin":"Francke","destination":"Hospital / San Maximiliano Kolbe","status":"active","ui_color":"#0284c7"},
+    {"city":"osorno","route_id":"7B","unit":"Osorno L7","operator":"Frankol","origin":"Francke / Rahue Bajo / Kolbe","destination":"Universidad de Los Lagos","status":"active","ui_color":"#38bdf8"}
   ]
 }
