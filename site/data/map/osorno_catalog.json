@@ -1,0 +1,76 @@
+{
+  "metadata": {
+    "city": "osorno",
+    "city_label": "Osorno",
+    "updated": "2026-10-17",
+    "note": "Ticket-line view of the regulated urban services in Osorno. Public legacy route identifiers are retained in the geometry metadata when they differ from the post-2021 ticket line number."
+  },
+  "routes": [
+    {
+      "city": "osorno",
+      "route_id": "1",
+      "unit": "Osorno L1",
+      "operator": "Quinto Centenario",
+      "origin": "Quinto Centenario / Rahue",
+      "destination": "Centro / ULA",
+      "status": "active",
+      "ui_color": "#d62828",
+      "variants": ["1A", "1B", "1C", "1D"]
+    },
+    {
+      "city": "osorno",
+      "route_id": "2",
+      "unit": "Osorno L2",
+      "operator": "Transportes Centenario",
+      "origin": "Rahue Alto",
+      "destination": "Universidad de Los Lagos",
+      "status": "active",
+      "ui_color": "#f4a261",
+      "variants": ["2A", "2B"]
+    },
+    {
+      "city": "osorno",
+      "route_id": "3",
+      "unit": "Osorno L3",
+      "operator": "Transportes Rahue Alto",
+      "origin": "Rahue",
+      "destination": "Tec. ULA",
+      "status": "active",
+      "ui_color": "#2a9d8f",
+      "variants": ["3", "3A"]
+    },
+    {
+      "city": "osorno",
+      "route_id": "4",
+      "unit": "Osorno L4",
+      "operator": "Vía Azul",
+      "origin": "Rahue / Mirasur",
+      "destination": "Universidad de Los Lagos",
+      "status": "active",
+      "ui_color": "#277da1",
+      "variants": ["4"]
+    },
+    {
+      "city": "osorno",
+      "route_id": "5",
+      "unit": "Osorno L5",
+      "operator": "Quinto Centenario",
+      "origin": "Ovejería",
+      "destination": "Centro / sector oriente",
+      "status": "active",
+      "ui_color": "#7b2cbf",
+      "variants": ["5"]
+    },
+    {
+      "city": "osorno",
+      "route_id": "7",
+      "unit": "Osorno L7",
+      "operator": "Transportes Francke",
+      "origin": "San Maximiliano Kolbe",
+      "destination": "Francke",
+      "status": "active",
+      "ui_color": "#0081a7",
+      "variants": ["7", "7A"]
+    }
+  ]
+}
