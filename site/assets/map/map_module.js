@@ -12,7 +12,7 @@
   async function init(){
     state.map=L.map('map',{preferCanvas:true}).setView(cityView.valparaiso.center,cityView.valparaiso.zoom);
     L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:19,attribution:'&copy; OpenStreetMap contributors'}).addTo(state.map);
-    const [catRes,geoRes,osCatRes,osGeoRes]=await Promise.all([fetch('data/map/route_catalog.json?v=20261017-1'),fetch('data/map/routes.geojson?v=20261017-1'),fetch('data/map/osorno_catalog.json?v=20261017-2'),fetch('data/map/osorno_routes.geojson?v=20261017-2')]);
+    const [catRes,geoRes,osCatRes,osGeoRes]=await Promise.all([fetch('data/map/route_catalog.json?v=20261017-1'),fetch('data/map/routes.geojson?v=20261018-1'),fetch('data/map/osorno_catalog.json?v=20261017-2'),fetch('data/map/osorno_routes.geojson?v=20261017-2')]);
     const cat=await catRes.json(),geo=await geoRes.json(),osCat=await osCatRes.json(),osGeo=await osGeoRes.json();
     state.catalog=[...(cat.routes||[]).map(r=>({...r,city:'valparaiso'})),...(osCat.routes||[]).map(r=>({...r,city:'osorno'}))];
     state.geo={type:'FeatureCollection',features:[...(geo.features||[]).map(f=>({...f,properties:{...f.properties,city:'valparaiso'}})),...(osGeo.features||[]).map(f=>({...f,properties:{...f.properties,city:'osorno'}}))]};
