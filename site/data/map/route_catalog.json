@@ -1,5 +1,5 @@
 {
-  "as_of": "2026-10-03",
+  "as_of": "2026-10-18",
   "routes": [
     {
       "route_id": "C01",
@@ -62,12 +62,12 @@
       "valid_to": "",
       "confidence": "high",
       "primary_source_id": "official_n01_2025",
-      "endpoint_source_id": "official_n01_2025",
-      "geometry_status": "missing_verified_current_geometry",
+      "endpoint_source_id": "official_red_regional_static_gtfs",
+      "geometry_status": "official_current_gtfs_shape",
       "origin": "Estación Puerto",
       "destination": "Estación Peñablanca",
       "ui_color": "#455a64",
-      "notes": ""
+      "notes": "Current two-direction shape, ordered stops and schedules recovered from the official Red Regional static GTFS feed on 2026-10-18."
     },
     {
       "route_id": "Q01",

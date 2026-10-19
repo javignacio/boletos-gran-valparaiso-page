@@ -12,7 +12,7 @@
   async function init(){
     state.map=L.map('map',{preferCanvas:true}).setView(cityView.valparaiso.center,cityView.valparaiso.zoom);
     L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:19,attribution:'&copy; OpenStreetMap contributors'}).addTo(state.map);
-    const [catRes,geoRes,osCatRes,osGeoRes]=await Promise.all([fetch('data/map/route_catalog.json?v=20261017-1'),fetch('data/map/routes.geojson?v=20261018-1'),fetch('data/map/osorno_catalog.json?v=20261017-2'),fetch('data/map/osorno_routes.geojson?v=20261017-2')]);
+    const [catRes,geoRes,osCatRes,osGeoRes]=await Promise.all([fetch('data/map/route_catalog.json?v=20261018-2'),fetch('data/map/routes.geojson?v=20261018-2'),fetch('data/map/osorno_catalog.json?v=20261017-2'),fetch('data/map/osorno_routes.geojson?v=20261017-2')]);
     const cat=await catRes.json(),geo=await geoRes.json(),osCat=await osCatRes.json(),osGeo=await osGeoRes.json();
     state.catalog=[...(cat.routes||[]).map(r=>({...r,city:'valparaiso'})),...(osCat.routes||[]).map(r=>({...r,city:'osorno'}))];
     state.geo={type:'FeatureCollection',features:[...(geo.features||[]).map(f=>({...f,properties:{...f.properties,city:'valparaiso'}})),...(osGeo.features||[]).map(f=>({...f,properties:{...f.properties,city:'osorno'}}))]};
@@ -33,12 +33,12 @@
       const geometryQuality=String(f.properties?.geometry_quality||'');
       const geometryMethod=String(f.properties?.geometry_method||'');
       const isRoadFollowing=geometryQuality.startsWith('road_following_');
-      const isExact=geometryQuality==='road_following_rendered_route_trace';
-      const style=isRoadFollowing?{color,weight:5,opacity:.9}:{color,weight:3,opacity:.55,dashArray:'7 7'};
       const official=geometryMethod.includes('official_dtpr'),corridor=geometryMethod.includes('published_corridor');
-      const quality=isExact?'trazado vial recuperado del mapa público de Moovit':official?'trazado por calles siguiendo la secuencia vial oficial':corridor?'trazado por calles siguiendo el corredor publicado':isRoadFollowing?'trazado por calles calculado a través de la secuencia de paradas':'aproximación que une paradas; no representa las calles exactas';
-      const source=isExact?'mapa público de Moovit':official?'programa oficial DTPR y OSRM':corridor?'descripción pública del servicio y OSRM':isRoadFollowing?'OSRM y paradas públicas de Moovit':'página pública de Moovit';
-      const waypointLabel=official?'cruces oficiales':corridor?'puntos del corredor':'paradas';
+      const isExact=geometryQuality==='road_following_rendered_route_trace'||official;
+      const style=isRoadFollowing?{color,weight:5,opacity:.9}:{color,weight:3,opacity:.55,dashArray:'7 7'};
+      const quality=official?'trazado oficial publicado en el GTFS de Red Regional':isExact?'trazado vial recuperado del mapa público de Moovit':corridor?'trazado por calles siguiendo el corredor publicado':isRoadFollowing?'trazado por calles calculado a través de la secuencia de paradas':'aproximación que une paradas; no representa las calles exactas';
+      const source=official?'GTFS oficial de Red Regional (DTPR)':isExact?'mapa público de Moovit':corridor?'descripción pública del servicio y OSRM':isRoadFollowing?'OSRM y paradas públicas de Moovit':'página pública de Moovit';
+      const waypointLabel=official?'paradas oficiales':corridor?'puntos del corredor':'paradas';
       const lyr=L.geoJSON(f,{style}).bindPopup(`<strong>${esc(rid)}</strong><br>${esc(direction)}${stops?` · ${esc(stops)} ${waypointLabel}`:''}<br>${esc(rec?.unit||'')} · ${esc(rec?.operator||'')}<br><small>Fuente: ${source} · ${quality}</small>`).addTo(state.map);
       const meta={layer:lyr,city,rid:norm(rid),routeId:rid,unit:rec?.unit||'',directionIndex:String(f.properties?.direction_index??0),direction,stops,waypointLabel,isExact:isRoadFollowing,routeColor:color};
       const key=routeKey(city,rid);if(!state.layers.has(key)) state.layers.set(key,[]); state.layers.get(key).push(meta); state.allLayers.push(meta);
