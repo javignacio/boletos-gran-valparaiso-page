@@ -5,11 +5,11 @@
   "updated": "2026-10-17T15:13:14.314Z",
   "types_total": 263,
   "types_owned": 208,
-  "copies_owned": 419,
-  "copies_target": 570,
+  "copies_owned": 417,
+  "copies_target": 568,
   "copies_missing": 151,
   "unresolved": 89,
-  "completion": 73.51,
+  "completion": 73.42,
   "metrics": [
     {
       "label": "Types owned",
@@ -17,7 +17,7 @@
     },
     {
       "label": "Copies",
-      "value": "419 / 570"
+      "value": "417 / 568"
     },
     {
       "label": "Missing",
