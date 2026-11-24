@@ -18,10 +18,12 @@ body{margin:0;background:#ece9e2;color:var(--ink);font:10pt/1.3 "Segoe UI",Arial
 .city{break-before:auto}
 .city-title{margin:0 0 12px;padding-bottom:6px;border-bottom:2px solid var(--accent);font-size:18pt;color:#142f34}
 .operator{margin:0 0 15px;break-inside:auto}
-.operator-title{margin:0 0 7px;padding:5px 7px;border-left:4px solid var(--accent);background:#edf3f2;font-size:13pt}
+.operator-title{margin:0 0 7px;padding:5px 7px;border-left:4px solid var(--accent);background:#edf3f2;font-size:13pt;break-after:avoid-page;page-break-after:avoid}
 .subsection{margin:0 0 11px}
-.sub-title{margin:0 0 6px;font-size:10.5pt}
+.subsection-start{break-inside:avoid-page;page-break-inside:avoid}
+.sub-title{margin:0 0 6px;font-size:10.5pt;break-after:avoid-page;page-break-after:avoid}
 .ticket-grid{display:grid;grid-template-columns:repeat(var(--columns),minmax(0,1fr));gap:8px;align-items:start}
+.ticket-grid-continuation{margin-top:8px}
 .ticket{min-width:0;border:1px solid var(--line);border-radius:7px;padding:6px;background:#fff;break-inside:avoid;page-break-inside:avoid}
 .ticket-main{display:block;width:100%;height:var(--ticket-image-height);object-fit:contain;background:#f3f1ec;border-radius:4px}
 .ticket-title{margin:5px 0 2px;font-size:8.5pt;font-weight:750;line-height:1.15;text-align:center}
@@ -75,6 +77,24 @@ function ticketHtml(t){
   const span=Math.min(layoutColumns(),variantFaces.length+1);
   return `<article class="ticket-group" style="--group-span:${span}"><div class="ticket-group-grid">${baseFace}${variantFaces.join('')}</div></article>`;
 }
+function ticketSpan(t){
+  if(!document.getElementById('includeVariants').checked)return 1;
+  const count=(Array.isArray(t.variants)?t.variants:[]).filter(variant=>variant&&[variant.obverse,variant.reverse].some(image=>imageOf(image))).length;
+  return count?Math.min(layoutColumns(),count+1):1;
+}
+function subsectionHtml(section,rows){
+  const columns=layoutColumns();
+  let used=0,end=0;
+  while(end<rows.length){
+    const span=ticketSpan(rows[end]);
+    if(end>0&&used+span>columns)break;
+    used+=span;
+    end+=1;
+    if(used>=columns)break;
+  }
+  const firstRow=rows.slice(0,end),remaining=rows.slice(end);
+  return `<div class="subsection"><div class="subsection-start"><h4 class="sub-title">${esc(section.sub||'')}</h4><div class="ticket-grid">${firstRow.map(ticketHtml).join('')}</div></div>${remaining.length?`<div class="ticket-grid ticket-grid-continuation">${remaining.map(ticketHtml).join('')}</div>`:''}</div>`;
+}
 function renderCity(title,osorno){
   const relevant=sectionEntries().filter(([id,section])=>isOsornoSection(id,section)===osorno);
   const grouped=[];
@@ -84,7 +104,7 @@ function renderCity(title,osorno){
     const rows=tickets.filter(t=>t.default_bucket===id);
     if(rows.length)group.sections.push({id,section,rows});
   });
-  const operators=grouped.filter(group=>group.sections.length).map(group=>`<section class="operator"><h3 class="operator-title">${esc(group.title)}</h3>${group.sections.map(({section,rows})=>`<div class="subsection"><h4 class="sub-title">${esc(section.sub||'')}</h4><div class="ticket-grid">${rows.map(ticketHtml).join('')}</div></div>`).join('')}</section>`).join('');
+  const operators=grouped.filter(group=>group.sections.length).map(group=>`<section class="operator"><h3 class="operator-title">${esc(group.title)}</h3>${group.sections.map(({section,rows})=>subsectionHtml(section,rows)).join('')}</section>`).join('');
   return `<section class="city${osorno?' osorno':''}"><h2 class="city-title">${esc(title)}</h2>${operators||'<p class="empty">No catalogue entries.</p>'}</section>`;
 }
 function render(){
